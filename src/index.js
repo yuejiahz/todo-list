@@ -1,8 +1,17 @@
 import './style.css';
-import { today, addTask } from './today-list.js'
+import { format, compareAsc } from 'date-fns'
+import { title, buttonAddEventListener, addTaskInput} from './UI.js'
 
-const taskContainer=document.querySelector('#task-container');
+const taskContent = document.getElementById("task-content");
+taskContent.append(title());
 
-taskContainer.append(today());
+buttonAddEventListener();
 
-console.log(taskContainer);
+
+
+// window.addEventListener('click',(e)=>{
+// console.log(e);
+// }
+
+/* taskContent.append(addTask())
+ */
