@@ -9,32 +9,32 @@
 </head>
 
 <body>
-    <section>
+    <main>
+    <section id="header">
         <h1>Todo List</h1>
     </section>
-
-    <main id="content">
+    <section id="main-container">
         <section id='nav-bar'>
             <div id='home' class='nav-item'>Home</div>
             <div id='today' class='nav-item'>Today </div>
             <div id='projects'>
-                <h3 id='projects-title'>Projects</h3>
+                <h3 id='project-title' class="h3-title">Projects</h3>
                 <div id='project-content'>
                     <button id='add-project' class='nav-item add-btn'> + Add Project</button>
                 </div>
             </div>
         </section>
+
         <section id='task-container'>
             <div id='task-content'></div>
-            <div id='add-task-banner'>
-                <button id='add-task-btn' class='add-btn'>+ Add Task</button>
-            </div>
+            <button id='add-task-btn' class='add-btn'>+ Add Task</button>
         </section>
-
+        <section id="right-column"> </section>
+</section>
     </main>
 
     <script src="main.js"></script>
 </body>
-<footer> Created by Moonji <3 </footer>
+<footer> Created by Moonji </footer>
 
 </html>

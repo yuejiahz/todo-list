@@ -6,12 +6,3 @@ const taskContent = document.getElementById("task-content");
 taskContent.append(title());
 
 buttonAddEventListener();
-
-
-
-// window.addEventListener('click',(e)=>{
-// console.log(e);
-// }
-
-/* taskContent.append(addTask())
- */

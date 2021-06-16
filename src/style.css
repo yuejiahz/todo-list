@@ -1,54 +1,82 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,700&family=Roboto&display=swap');
+*{
+    margin:0;
+    font-family: 'Roboto', sans-serif;
+}
+@media screen and (max-width:850px) {
+    #main-container{ 
+        display: grid;
+        grid-template-columns: 15rem 30rem 1fr;
+    }
+    #task-container{
+    width:30rem;
+    }
+}
 
-#content{   
-    width: 100%;
-    position: relative;
+main{
+    display: grid;
+    grid-template-rows: 3rem 1fr 0.03rem;
+    grid-template-areas:
+    "header "
+    "main-container"
+    "footer" ;
     height:100vh;
-    padding:5rem 0 0 0;
-    background-color: white;
-    padding-bottom:1rem ;
-    display: flex;
 }
 
 h1{
+    grid-area:header;
     font-family: 'Josefin Sans', sans-serif;
     background-color: #3e5fac;
     color:white;
-    position: absolute;
-    margin: 0;
-    line-height:4rem;
     text-align: center;
-    width:100%;
     font-size: 300%;
-    z-index: 1;
+    line-height: 3rem;
 }
-
-body{
-    margin:0;
-    top:0; 
+#main-container{ 
+    grid-area:main-container; 
+    display: grid;
+    grid-template-columns: 15rem 50rem 1fr;
+    grid-template-areas:
+    "nav-bar task-container right-column";
+    overflow-y: auto;
 }
 
 #nav-bar{
-    position: absolute;
-    top:0;
-    background-color:#efefef;
-    min-width: 10%;
-    height:100vh;
-    padding:5rem 1rem 2.5rem 0;
-    font-family: 'Roboto', sans-serif;
+    background-color:#f0eded;
+    grid-area:nav-bar;  
+    font-family: 'Roboto', sans-serif; 
 }
 
+#task-container{
+    grid-area:task-container;
+    padding:2rem;
+}
+
+#right-column{
+    grid-area:right-column;
+    background-color:#f0eded;
+}
+
+#project-title, #title {
+    padding: 1rem 0 1rem 0.3rem;
+}
+.nav-item{
+justify-self: stretch;
+}
+.nav-item,#add-task-btn{
+    background-color:#dddcdc;
+}
+
+.nav-item:hover{
+    background-color:#cac5c5;
+}
 .nav-item,#add-task-btn{
     border: none;
     background-color:#dddcdc;
 }
-.nav-item:hover{
-    background-color:#cac5c5;
-}
 #home, #today{
-    margin:0.3rem;
-    padding:0.8rem;
-    width: 85%;
+    margin:0.3rem 0 0.3rem 0;
+    padding:0.8rem 0 0.8rem 0.5rem;
 }
 #add-project{
     width:7.8rem;
@@ -57,47 +85,19 @@ body{
 #projects-title, #projects{
     background-color: transparent;
 }
-#projects-title{
-    padding:0 0 0 1rem;
-}
+
 #project-content{
     overflow-y: auto;
 }
-p{
-    font-family: 'Roboto', sans-serif;
-}
-
- @media only screen and (max-width: 600px) {
-    #nav-bar{
-         width:25%;  
-         font-size: 15px;
-    }
-    #task-container{
-        display: flex;
-        max-width:60%
-    }
- }
-
-#task-container{
-    position:absolute;
-    left:12rem;
-    top:5.5rem; 
-    width: 60%;
-    padding:1rem;
-    background-color:#f0eded;
-    display: flex;
-    flex-direction: column;
-    
-}
 
 #task-content{
-    flex-direction: column;
-    height: 10%;
     background-color: wheat;
+    padding: 0 1.3rem;
     overflow-x: visible;
 }
+
 #add-task-banner{
-    height:10%
+    height:1rem;
 }
 
 #add-task-btn{
@@ -116,24 +116,25 @@ p{
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
 }
-.task-bar{
-    background-color: green;
-    height: 100%;
+#task-input-bar{
+    background-color: rgb(65, 65, 65);
+    height: 1.6rem;
     padding: 0.5rem;
     margin:auto;
     display: flex;
-    flex-direction: row;
+    align-content: stretch;
 }
 
 #task,
 #dueDate,
 #add-task-input-btn,
-#cancel-task-input-btn
+#cancel-task-input-btn,
+#delete-task-list-btn
 {
     border-radius: 5px;
     border: none;
     margin:0 0.1rem 0 0.1rem;
-    line-height: 2rem;
+    
 }
 
 #task{
@@ -144,28 +145,60 @@ p{
 }
 .task-btn{
     font-weight: bold;
-    width: 6rem;
 }
 
 #add-task-input-btn{
     background-color: lightgreen;
+    width: 20%;
+
 }
-#cancel-task-input-btn{
+#cancel-task-input-btn,#delete-task-list-btn{
     background-color: lightcoral;
-    width: 2.5rem;
+    width: 5%;
 }
-#cancel-task-input-btn:hover{
-    background-color: rgba(107, 107, 107, 0.282);
+#cancel-task-input-btn:hover,
+#delete-task-list-btn:hover{
+    background-color: rgb(194, 102, 102);
+    ;
 }
 #add-task-input-btn:hover{
     background-color: rgb(105, 182, 105);
-}
 
-footer{
+}
+li{
+    list-style-type: none;
+    display: flex;
+    padding: 1rem;
+    line-height: 1.6rem;
+}
+#task-checkbox{
+    size:3rem;
+    padding:1rem;
+    margin:auto;
+}
+#task-text{
+    flex-grow: 1;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+}
+#task-date{
+    width: 5.5rem;
+    right:5rem;
+    padding-right: 0.8rem;
+}
+#delete-task-list-btn{
+    text-align: center;
     position: relative;
+    right:0;
+}
+footer{
+    grid-area:footer;
+    background-color:#dddcdc;
+    align-self: stretch;
+    /* position: relative;
     background-color:#dddcdc;
     width: 100%;
     bottom:-1.1rem;
     line-height:1.2rem;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif; */
 }
