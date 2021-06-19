@@ -5,4 +5,10 @@ import { title, buttonAddEventListener, addTaskInput} from './UI.js'
 const taskContent = document.getElementById("task-content");
 taskContent.append(title());
 
-buttonAddEventListener();
+window.addEventListener('load', (event) => {
+    buttonAddEventListener();
+    console.log('page is fully loaded');
+  });
+
+
+

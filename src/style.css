@@ -32,7 +32,7 @@ h1{
     font-size: 300%;
     line-height: 3rem;
 }
-#main-container{ 
+section#main-container{ 
     grid-area:main-container; 
     display: grid;
     grid-template-columns: 15rem 50rem 1fr;
@@ -41,18 +41,18 @@ h1{
     overflow-y: auto;
 }
 
-#nav-bar{
+section#nav-bar{
     background-color:#f0eded;
     grid-area:nav-bar;  
     font-family: 'Roboto', sans-serif; 
 }
 
-#task-container{
+section#task-container{
     grid-area:task-container;
     padding:2rem;
 }
 
-#right-column{
+section#right-column{
     grid-area:right-column;
     background-color:#f0eded;
 }
@@ -63,10 +63,6 @@ h1{
 .nav-item{
 justify-self: stretch;
 }
-.nav-item,#add-task-btn{
-    background-color:#dddcdc;
-}
-
 .nav-item:hover{
     background-color:#cac5c5;
 }
@@ -78,19 +74,19 @@ justify-self: stretch;
     margin:0.3rem 0 0.3rem 0;
     padding:0.8rem 0 0.8rem 0.5rem;
 }
-#add-project{
+button#add-project{
     width:7.8rem;
     margin-left:0.5rem;
 }
-#projects-title, #projects{
+#projects-title, div#projects{
     background-color: transparent;
 }
 
-#project-content{
+div#project-content{
     overflow-y: auto;
 }
 
-#task-content{
+div#task-content{
     background-color: wheat;
     padding: 0 1.3rem;
     overflow-x: visible;
@@ -100,13 +96,13 @@ justify-self: stretch;
     height:1rem;
 }
 
-#add-task-btn{
+button#add-task-btn{
     text-align: center;
 }
-#add-task-btn:hover{
+button#add-task-btn:hover{
     background-color:#cac5c5;
 }
-.add-btn{
+button.add-btn{
     border-radius: 20px;
     color: rgb(124, 82, 59);
     margin:0.2rem;
@@ -127,14 +123,13 @@ justify-self: stretch;
 
 #task,
 #dueDate,
-#add-task-input-btn,
-#cancel-task-input-btn,
-#delete-task-list-btn
+button#add-task-input-btn,
+button#cancel-task-input-btn,
+button.task-btn
 {
     border-radius: 5px;
     border: none;
     margin:0 0.1rem 0 0.1rem;
-    
 }
 
 #task{
@@ -143,27 +138,28 @@ justify-self: stretch;
 #date{
     width:30%;
 }
-.task-btn{
+button.task-btn{
     font-weight: bold;
 }
 
-#add-task-input-btn{
+button#add-task-input-btn{
     background-color: lightgreen;
     width: 20%;
 
 }
-#cancel-task-input-btn,#delete-task-list-btn{
+button#cancel-task-input-btn,button.task-delete-btn{
     background-color: lightcoral;
     width: 5%;
 }
-#cancel-task-input-btn:hover,
-#delete-task-list-btn:hover{
+button#cancel-task-input-btn:hover,
+.task-delete-btn:hover{
     background-color: rgb(194, 102, 102);
-    ;
 }
-#add-task-input-btn:hover{
+button#add-task-input-btn:hover{
     background-color: rgb(105, 182, 105);
-
+}
+button.task-edit-btn:hover{
+background-color: rgb(214, 218, 210);
 }
 li{
     list-style-type: none;
@@ -171,22 +167,23 @@ li{
     padding: 1rem;
     line-height: 1.6rem;
 }
-#task-checkbox{
+.task-checkbox{
     size:3rem;
     padding:1rem;
     margin:auto;
 }
-#task-text{
+.task-text{
     flex-grow: 1;
     padding-left: 0.8rem;
     padding-right: 0.8rem;
 }
-#task-date{
+.task-date{
     width: 5.5rem;
     right:5rem;
+    padding-left: 0.8rem;
     padding-right: 0.8rem;
 }
-#delete-task-list-btn{
+.task-delete-btn{
     text-align: center;
     position: relative;
     right:0;
@@ -195,10 +192,4 @@ footer{
     grid-area:footer;
     background-color:#dddcdc;
     align-self: stretch;
-    /* position: relative;
-    background-color:#dddcdc;
-    width: 100%;
-    bottom:-1.1rem;
-    line-height:1.2rem;
-    font-family: 'Roboto', sans-serif; */
 }

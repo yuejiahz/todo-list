@@ -1,7 +1,9 @@
 import { addTaskInput } from './task.js'
 
-
 let hasTaskInput =false;
+let hasTaskList =false;
+
+
 
 const title = () =>{
     const titleContainer=document.createElement('div');
@@ -12,7 +14,6 @@ const title = () =>{
     titleContainer.appendChild(title);
     return titleContainer;
 }
-
 
 const appendTaskInputLayout=()=>{
     //select task content div
@@ -30,76 +31,130 @@ const appendTaskInputLayout=()=>{
         <button id="cancel-task-input-btn" class="task-btn"> X </button>
      `;    
     taskContent.appendChild(taskBar);
-    //hide + add task button
+    //hide add task button
     document.querySelector('#add-task-btn').style.display="none";
     //add event listener to task input buttons (add, x)
-    buttonAddEventListener(hasTaskInput=true);
+    buttonAddEventListener(hasTaskInput=true, hasTaskList=false);
 }
 
-function buttonAddEventListener(hasTaskInput){
-    const addTaskBtn=document.querySelector('#add-task-btn');
-    const addTaskInputBtn=document.querySelector('#add-task-input-btn');
-    const cancelTaskInputBtn=document.querySelector('#cancel-task-input-btn');
-
-    if(!hasTaskInput){
-    addTaskBtn.addEventListener('click', appendTaskInputLayout);
-    } 
-    if(hasTaskInput) {
-    addTaskBtn.removeEventListener('click', appendTaskInputLayout);
-    addTaskInputBtn.addEventListener('click', appendTask);
-    cancelTaskInputBtn.addEventListener('click', removeDOM);
-    hasTaskInput=false;
-    } 
-}
 
 const appendTask=(event)=>{
     const taskContent=document.querySelector('#task-content');
 
-    //remove previous task list 
-    const selectOneTask=document.querySelector('#one-task');
+    //remove previous task list and sort button
+    const selectOneTask=document.querySelector('#task-0');
     if(selectOneTask) {
-        removeDOM({target:{ id:'one-task'}});
+        removeDOM('task-0');
     }
     
-    //task list array
+    //get task list array
     let taskList=addTaskInput();
 
-    //create task list
+    //create task list 
     const taskListLayout=document.createElement('ul');
     taskListLayout.id="task-list";
 
-    for(var i=0;i<taskList.length;i++){
-        const oneTask=document.createElement('li');
-        oneTask.id="one-task";
 
-        oneTask.innerHTML=`
+    for(let i in taskList){
+        const task=document.createElement('li');
+        task.id=`task-${[i]}`;
+        task.classList.add="all-task";
+
+        task.innerHTML=`
             <label for="task-checkbox"></label>
-            <input type="checkbox" id="task-checkbox" name="task-checkbox" value=" ${taskList[i].task}  ${taskList[i].date}">
-            <p id="task-text"> ${taskList[i].task} </p>
-            <p id="task-date"> ${taskList[i].date}</p>
-            <button id="delete-task-list-btn" class="task-list-btn"> X </button>
+            <input type="checkbox" id="task-check-box-${[i]}" class="task-checkbox" name="task-checkbox" value=" ${taskList[i].task}  ${taskList[i].date}">
+           
+            <p id="task-text-${[i]}" class="task-text task-item"> ${taskList[i].task}</p>
+            <p id="task-date-${[i]}" class="task-date task-item"> ${taskList[i].date}</p>
+        
+            <button id="task-edit-btn-${[i]}" class="task-edit-btn task-item task-btn"> Edit </button>
+            <button id="task-delete-btn-${[i]}" class="task-delete-btn task-item task-btn"> X </button>
             `;
-        const tc=document.getElementById('task-checkbox');
-        console.log(tc);
-            taskListLayout.appendChild(oneTask);
-        }
+            buttonAddEventListener(hasTaskInput=false,hasTaskList=true,i);
+          
+            const d=document.querySelector(`#task-delete-btn-${[i]}`);
+            // const d=document.querySelectorAll(`.task-delete-btn`);
+             //console.log(d);
+        //    task.addEventListener('load',function()=>{
+        //     console.log('haoot');
+        //    });
+        console.log(task.children[5]);
 
+            //addEventListener('click',removeDOM);
+            taskListLayout.appendChild(task);
+
+            function hey(){
+                console.log('hello there');
+            }
+        }
+   
     taskContent.appendChild(taskListLayout);
     
-    //display + add task button
+    //display add task button
     document.querySelector('#add-task-btn').style.display="block";
     removeDOM(event);
 
 }
 
-const removeDOM = (event) => {
-    const DOM = document.getElementById(`${event.target.id}`).parentNode;
-    DOM.remove();
-    //add event listener to + add task button
-    buttonAddEventListener(hasTaskInput=false);
-    //display add task button
-    document.querySelector('#add-task-btn').style.display="block";
 
+function buttonAddEventListener(hasTaskInput,hasTaskList,i){
+
+    const idToAddEventListener = (id,func) => {
+        document.querySelector(`#${id}`).addEventListener('click',func);
+    }
+
+    //  idToAddEventListener : { 
+    //      function (id,func)=>{
+    //     document.querySelector(`#${id}`).addEventListener('click',func);
+    //     }
+    
+    if(!hasTaskInput){
+        idToAddEventListener('add-task-btn',appendTaskInputLayout);
+    } 
+    if(hasTaskInput) {
+        idToAddEventListener('add-task-input-btn',appendTask);
+        idToAddEventListener('cancel-task-input-btn',removeDOM);
+        hasTaskInput=false;
+    } 
+    if(hasTaskList){
+        console.log(i);
+        // window.onload()=init;
+        // function init(){
+        // idToAddEventListener(`task-delete-btn-${i}`,removeDOM); 
+        // }
+        //idToAddEventListener(`task-list`,removeDOM);
+        //idToAddEventListener(`task-edit-${i}`,loaded);
+
+      
+       function updateHTML(elm,){
+
+       }
+        // const taskLists=document.querySelector(`button[id="task-delete-btn-${i}"]`);        
+        // console.log(taskLists);
+      
+        hasTaskList=false;
+    }
+
+}
+
+const removeDOM = (event) => {
+    //remove element by event
+    if(typeof event === 'object'){
+        const DOM = document.getElementById(`${event.target.id}`).parentNode;
+       
+         //display add task button and add event listener after task input
+         if(event.target.id=='add-task-input-btn'||event.target.id=='cancel-task-input-btn'){
+            document.querySelector('#add-task-btn').style.display="block";
+        }
+     DOM.remove();
+    }
+
+    //remove element by element id
+    if(typeof event === 'string'){
+        const DOM = document.getElementById(event).parentNode;
+        DOM.remove();
+    }
+    
 }
 
 
