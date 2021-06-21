@@ -35,15 +35,16 @@ h1{
 section#main-container{ 
     grid-area:main-container; 
     display: grid;
-    grid-template-columns: 15rem 50rem 1fr;
+    /* grid-template-columns: 15rem 50rem 1fr; */
+    grid-template-columns: 5rem 50rem 1fr;
     grid-template-areas:
     "nav-bar task-container right-column";
     overflow-y: auto;
 }
 
 section#nav-bar{
-    background-color:#f0eded;
     grid-area:nav-bar;  
+    background-color:#f0eded;
     font-family: 'Roboto', sans-serif; 
 }
 

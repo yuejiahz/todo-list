@@ -1,10 +1,5 @@
 import { addTaskInput } from './task.js'
 
-let hasTaskInput =false;
-let hasTaskList =false;
-
-
-
 const title = () =>{
     const titleContainer=document.createElement('div');
     const title=document.createElement('h3');
@@ -15,7 +10,8 @@ const title = () =>{
     return titleContainer;
 }
 
-const appendTaskInputLayout=()=>{
+const appendTaskInputLayout = (listId)=>{
+    console.log(listId);
     //select task content div
     const taskContent=document.querySelector('#task-content');
     //create task input container
@@ -23,8 +19,8 @@ const appendTaskInputLayout=()=>{
     taskBar.id="task-input-bar";;
     //insert html for task input
     taskBar.innerHTML=`
-        <label for="task"> </label>
-        <input type="text" id="task" name="task" value="default" placeholder="Task" >
+        <label for="task-input"> </label>
+        <input type="text" id="task-input" name="task-input" value="default" placeholder="Task" >
         <label for="date"></label>
         <input type="date" id="dueDate" name="dueDate">
         <button id="add-task-input-btn" class="task-btn"> Add </button>
@@ -36,12 +32,12 @@ const appendTaskInputLayout=()=>{
     //add event listener to task input buttons (add, x)
     buttonAddEventListener(hasTaskInput=true, hasTaskList=false);
 }
-
-
+  
 const appendTask=(event)=>{
+
     const taskContent=document.querySelector('#task-content');
 
-    //remove previous task list and sort button
+    //remove previous task list 
     const selectOneTask=document.querySelector('#task-0');
     if(selectOneTask) {
         removeDOM('task-0');
@@ -54,12 +50,11 @@ const appendTask=(event)=>{
     const taskListLayout=document.createElement('ul');
     taskListLayout.id="task-list";
 
-
     for(let i in taskList){
         const task=document.createElement('li');
         task.id=`task-${[i]}`;
-        task.classList.add="all-task";
-
+        task.classList.add="tasks";
+      
         task.innerHTML=`
             <label for="task-checkbox"></label>
             <input type="checkbox" id="task-check-box-${[i]}" class="task-checkbox" name="task-checkbox" value=" ${taskList[i].task}  ${taskList[i].date}">
@@ -70,43 +65,25 @@ const appendTask=(event)=>{
             <button id="task-edit-btn-${[i]}" class="task-edit-btn task-item task-btn"> Edit </button>
             <button id="task-delete-btn-${[i]}" class="task-delete-btn task-item task-btn"> X </button>
             `;
-            buttonAddEventListener(hasTaskInput=false,hasTaskList=true,i);
-          
-            const d=document.querySelector(`#task-delete-btn-${[i]}`);
-            // const d=document.querySelectorAll(`.task-delete-btn`);
-             //console.log(d);
-        //    task.addEventListener('load',function()=>{
-        //     console.log('haoot');
-        //    });
-        console.log(task.children[5]);
-
-            //addEventListener('click',removeDOM);
             taskListLayout.appendChild(task);
-
-            function hey(){
-                console.log('hello there');
-            }
         }
-   
+
     taskContent.appendChild(taskListLayout);
-    
+
+    buttonAddEventListener(hasTaskInput=false,hasTaskList=true,taskList.length);
+
     //display add task button
     document.querySelector('#add-task-btn').style.display="block";
     removeDOM(event);
-
 }
 
 
-function buttonAddEventListener(hasTaskInput,hasTaskList,i){
+
+function buttonAddEventListener(hasTaskInput,hasTaskList,listLength){
 
     const idToAddEventListener = (id,func) => {
         document.querySelector(`#${id}`).addEventListener('click',func);
     }
-
-    //  idToAddEventListener : { 
-    //      function (id,func)=>{
-    //     document.querySelector(`#${id}`).addEventListener('click',func);
-    //     }
     
     if(!hasTaskInput){
         idToAddEventListener('add-task-btn',appendTaskInputLayout);
@@ -116,23 +93,18 @@ function buttonAddEventListener(hasTaskInput,hasTaskList,i){
         idToAddEventListener('cancel-task-input-btn',removeDOM);
         hasTaskInput=false;
     } 
+
     if(hasTaskList){
-        console.log(i);
-        // window.onload()=init;
-        // function init(){
-        // idToAddEventListener(`task-delete-btn-${i}`,removeDOM); 
-        // }
-        //idToAddEventListener(`task-list`,removeDOM);
-        //idToAddEventListener(`task-edit-${i}`,loaded);
+        for(let j=0;j<listLength;j++){
+        let list= document.getElementsByTagName("LI");
 
-      
-       function updateHTML(elm,){
-
-       }
-        // const taskLists=document.querySelector(`button[id="task-delete-btn-${i}"]`);        
-        // console.log(taskLists);
-      
+        //add event listener to delete button
+        list.item(j).children[5].addEventListener('click',removeDOM);
+        //add event listener to edit button
+        list.item(j).children[4].addEventListener('click',getId);
+        }
         hasTaskList=false;
+
     }
 
 }
@@ -154,7 +126,13 @@ const removeDOM = (event) => {
         const DOM = document.getElementById(event).parentNode;
         DOM.remove();
     }
-    
+}
+
+const getId = (event)=>{
+    const a=document.querySelector(`#${event.target.id}`);
+    console.log(a.parentNode.id);
+    a.parentNode.style.display="none";
+    appendTaskInputLayout(a.parentNode.id);
 }
 
 
