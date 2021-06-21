@@ -8,16 +8,16 @@ Today's tab for quick creating list without needing to specify due date.
 Uses class to create new objects for new input.git 
 Data is stored in local storage for inter-session usage
 
+Modular pattern 
 
 CSS:
 grid and flexbox
 
-Used dependencies in webpack: 
+Dependencies in webpack: 
 webpack
 webpack-cli
 css loader
 style-loader
-date-fns
 
-Used devtool:
+Devtool:
 inline-source mapgit
