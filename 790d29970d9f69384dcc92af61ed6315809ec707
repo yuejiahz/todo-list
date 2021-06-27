@@ -1,0 +1,53 @@
+[33mcommit 1df0932594439d03a03fcd12d85caea900af9ca6[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: yujiah23 <yuejialow@gmail.com>
+Date:   Mon Jun 21 20:09:03 2021 +0800
+
+    feature: edit task
+
+[33mcommit 92f104c180dd142d224e20a672323f1e30d23bfc[m
+Author: yujiah23 <yuejialow@gmail.com>
+Date:   Mon Jun 21 11:05:50 2021 +0800
+
+    feature: add event listener to task button
+
+[33mcommit 25ad7a2980fe88b8b8cec4e48f011b7fd93e0c85[m
+Author: yujiah23 <yuejialow@gmail.com>
+Date:   Sat Jun 19 23:12:33 2021 +0800
+
+    feature: devtool use inline-source-map
+
+[33mcommit 3df6a9217589439c1b4de88b7c09a07c1b0ef0c6[m
+Author: yujiah23 <yuejialow@gmail.com>
+Date:   Wed Jun 16 15:07:39 2021 +0800
+
+    feature: create task items on a list
+
+[33mcommit 790d29970d9f69384dcc92af61ed6315809ec707[m
+Author: yujiah23 <yuejialow@gmail.com>
+Date:   Tue Jun 15 12:04:09 2021 +0800
+
+    feature: general layout and task input
+
+[33mcommit ed6794cb209d106a063b8d44bc08acd93400f3f9[m
+Author: yujiah23 <yuejialow@gmail.com>
+Date:   Wed Jun 9 23:53:25 2021 +0800
+
+    feature: layout and today tab DOM
+
+[33mcommit d42f035fc1e00e72298884786e13e58a67924025[m
+Author: yujiah23 <yuejialow@gmail.com>
+Date:   Wed Jun 9 23:51:17 2021 +0800
+
+    ignore node module folder
+
+[33mcommit 4aeec522502b7bbb7e7d41495878f86ee0800b9c[m
+Author: yujiah23 <yuejialow@gmail.com>
+Date:   Wed Jun 9 23:46:59 2021 +0800
+
+    Initial dist subtree commit
+
+[33mcommit b41dd0cd5253f998f5588fdec2224b89f8c4660c[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: yuejialow <yuejialow@gmail.com>
+Date:   Wed Jun 9 23:35:09 2021 +0800
+
+    Initial commit
