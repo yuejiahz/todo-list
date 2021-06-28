@@ -93,10 +93,6 @@ div#task-content{
     overflow-x: visible;
 }
 
-#add-task-banner{
-    height:1rem;
-}
-
 button#add-task-btn{
     text-align: center;
 }
@@ -113,13 +109,18 @@ button.add-btn{
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
 }
+
+#task-list{
+    min-height:1.5rem;
+    display: flex;
+}
 #task-input-bar{
     background-color: rgb(65, 65, 65);
-    height: 1.6rem;
+    height: 2rem;
     padding: 0.5rem;
-    margin:auto;
     display: flex;
-    align-content: stretch;
+    width: 95%;
+    align-content: space-between;
 }
 
 #task,
@@ -133,8 +134,8 @@ button.task-btn
     margin:0 0.1rem 0 0.1rem;
 }
 
-#task{
-    flex-grow: 1;
+#task-input{
+    width:50%;
 }
 #date{
     width:30%;
@@ -162,11 +163,16 @@ button#add-task-input-btn:hover{
 button.task-edit-btn:hover{
 background-color: rgb(214, 218, 210);
 }
+ul{
+    display: flex;
+    flex-direction: column;
+    background-color: wheat;
+}
 li{
-    list-style-type: none;
     display: flex;
     padding: 1rem;
     line-height: 1.6rem;
+    width: 95%;
 }
 .task-checkbox{
     size:3rem;

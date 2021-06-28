@@ -1,4 +1,5 @@
 //import { compareAsc } from 'date-fns'
+import { deleteElement } from './layout'
 
 let taskList =[];
 
@@ -10,7 +11,7 @@ class task {
   }
 }
 
-const addTaskInput = () => {
+const addTask = () => {
   let taskInput = document.getElementById('task-input').value;
   let dueDateInput = document.getElementById('dueDate').value;
   if (!dueDateInput) {
@@ -21,7 +22,9 @@ const addTaskInput = () => {
   }
   let newTask = new task(taskInput, dueDateInput,'unchecked');
   taskList.push(newTask);
+
   return taskList;
+  
 }
 
 const getTodayDate = () => {
@@ -32,4 +35,4 @@ const getTodayDate = () => {
   return { dd, mm, yyyy };
 }
 
-export { addTaskInput, getTodayDate }
+export { addTask, getTodayDate }
