@@ -6,7 +6,7 @@ function editTask(event){
 }
 
 function deleteElementbyEvent(event) {
-    if (typeof input === 'object') {
+    if (typeof event === 'object') {
         const element = document.getElementById(`${event.target.id}`).parentNode;
         element.remove();
     }
@@ -33,11 +33,13 @@ function displayAddTaskBtn(statement) {
 
 function displayTaskInputBar(statement){
     const taskInput = document.querySelector('#task-input-bar');
-    if (statement) {
-        taskInput.style.display = "block"
-    }
-    else {
-        taskInput.style.display = "none";
+    if(taskInput){
+        if (statement) {
+            taskInput.style.display = "flex"
+        }
+        else {
+            taskInput.style.display = "none";
+        }
     }
 }
 

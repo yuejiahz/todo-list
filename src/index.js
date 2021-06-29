@@ -21,17 +21,24 @@ defaultTitle();
 addEventListener();
 });
 
-function allTask(event){
+const allTask=((event)=>{
     getTitle('Home');
+    let g=[23,5,6,3,3,56,7,47,54]
+
+    function j(){
+        console.log('dsj');
+    }
     function h(){
-        console.log('h');
+       
+        console.log( g.indexOf(6));
     }
     return {
         h
     }
-}
+})
 const p= allTask();
 p.h();
+
 function todayTask(event){
     getTitle('Today');
 }

@@ -155,11 +155,6 @@ const taskList = () => {
         addEventListenerByClass('task-edit-btn', editTask);
     }
 
-    function removeEventListener() {
-        removeEventListenerByClass('task-del-btn', deleteElementbyEvent);
-        removeEventListenerByClass('task-edit-btn', editTask);
-    }
-
     deleteElementById('task-list');
     layout();
     addEventListener();
@@ -167,7 +162,10 @@ const taskList = () => {
     displayTaskInputBar(false);
 
     return {
-        removeEventListener
+        removeEventListener:function() {
+            removeEventListenerByClass('task-del-btn', deleteElementbyEvent);
+            removeEventListenerByClass('task-edit-btn', editTask);
+        }
     }
 }
 
