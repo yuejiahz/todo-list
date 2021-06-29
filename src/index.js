@@ -1,42 +1,42 @@
 import './style.css';
 //import { title, buttonAddEventListener } from './UI.js'
 import { getTitle, createTask, createProject } from './layout.js'
+import { addEventListenerById } from './DOMfunction.js'
 
 
-
-const loadPage = (() => {
-
-    const home = document.querySelector('#home');
-    const today = document.querySelector('#today');
-    const addProjectBtn = document.querySelector('#add-project-btn');
-    const addTaskBtn = document.querySelector('#add-task-btn');
+const loadPage = (() => {  
 
 const defaultTitle = () => {
    getTitle('Home');
 }
 
 const addEventListener = () => {
-   
-    home.addEventListener('click',allTask);
-    today.addEventListener('click',todayTask);
-    addProjectBtn.addEventListener('click',createProject);
-    addTaskBtn.addEventListener('click',createTask);
+    addEventListenerById('home',allTask);
+    addEventListenerById('today',todayTask);
+    addEventListenerById('add-project-btn',createProject);
+    addEventListenerById('add-task-btn',createTask);
 }
 
 defaultTitle();
 addEventListener();
 });
 
-window.addEventListener('DOMContentLoaded',loadPage);
-
 function allTask(event){
     getTitle('Home');
-
+    function h(){
+        console.log('h');
+    }
+    return {
+        h
+    }
 }
-
+const p= allTask();
+p.h();
 function todayTask(event){
     getTitle('Today');
 }
+
+window.addEventListener('DOMContentLoaded',loadPage);
 
 
 

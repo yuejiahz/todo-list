@@ -1,5 +1,14 @@
 import { addTask } from "./task"
-import { editTask, deleteElement, displayAddTaskBtn, displayTaskInputBar, addEventListenerById, addEventListenerByClass } from './DOMfunction.js'
+import {
+    editTask,
+    deleteElementById,
+    deleteElementbyEvent,
+    displayAddTaskBtn,
+    displayTaskInputBar,
+    addEventListenerById,
+    addEventListenerByClass,
+    removeEventListenerByClass
+} from './DOMfunction.js'
 
 
 const getTitle = (text) => {
@@ -12,11 +21,11 @@ const getTitle = (text) => {
         taskContent.prepend(title);
     }
 
-    deleteElement('title');
+    deleteElementById('title');
     createTitle();
 }
 
-const createTask = (event) => {
+const createTask = (taskNum) => {
 
     function layout() {
         const taskContent = document.querySelector('#task-content');
@@ -41,19 +50,33 @@ const createTask = (event) => {
         add.textContent = "Add";
         cancel.textContent = "X";
 
-        taskContent.append(taskBar);
         taskBar.appendChild(input);
         taskBar.appendChild(date);
         taskBar.appendChild(add);
         taskBar.appendChild(cancel);
+
+        //insert task input bar before selected edit list
+        if (typeof taskNum === 'string') {
+           const task = document.querySelector(`#task-${taskNum}`);
+           const selectTaskList = document.querySelector('#task-list');
+           //display hidden task
+           selectTaskList.childNodes.forEach((list)=> list.style.display="flex");      
+        
+           selectTaskList.insertBefore(taskBar, task);
+           //hide edited task
+           task.style.display = "none";
+
+        } else {
+            taskContent.append(taskBar);
+        }
     }
 
-    function addEventListener(){
-        addEventListenerById('add-task-input-btn',taskList);
-        addEventListenerById('cancel-task-input-btn',deleteElement);
+    function addEventListener() {
+        addEventListenerById('add-task-input-btn', taskList);
+        addEventListenerById('cancel-task-input-btn', deleteElementbyEvent);
     }
 
-    deleteElement('task-input-bar');
+    deleteElementById('task-input-bar');
     layout();
     addEventListener();
     displayAddTaskBtn(false);
@@ -66,33 +89,33 @@ const taskList = () => {
     function layout() {
         const taskContent = document.querySelector('#task-content');
         const taskList = document.createElement('ul');
-        taskList.id="task-list";
+        taskList.id = "task-list";
         taskContent.appendChild(taskList);
 
         for (let i in list) {
-           
+
             const task = document.createElement('li');
-            const checkbox= document.createElement('input');
-            const text= document.createElement('p');
-            const date= document.createElement('p');
+            const checkbox = document.createElement('input');
+            const text = document.createElement('p');
+            const date = document.createElement('p');
             const edit = document.createElement('button');
             const del = document.createElement('button');
 
             checkbox.setAttribute('type', 'checkbox');
 
             task.id = `task-${[i]}`;
-            checkbox.id=`task-checkbox-${i}`;
-            text.id=`task-text-${i}`;
-            date.id=`task-date-${i}`;
-            edit.id=`task-edit-btn-${i}`;
-            del.id=`task-delete-btn-${i}`;
+            checkbox.id = `task-checkbox-${i}`;
+            text.id = `task-text-${i}`;
+            date.id = `task-date-${i}`;
+            edit.id = `task-edit-btn-${i}`;
+            del.id = `task-delete-btn-${i}`;
 
-            task.setAttribute('data',`${i}`)
-            checkbox.setAttribute('data',`${i}`)
-            text.setAttribute('data',`${i}`)
-            date.setAttribute('data',`${i}`)
-            edit.setAttribute('data',`${i}`)
-            del.setAttribute('data',`${i}`)
+            task.setAttribute('data', `${i}`)
+            checkbox.setAttribute('data', `${i}`)
+            text.setAttribute('data', `${i}`)
+            date.setAttribute('data', `${i}`)
+            edit.setAttribute('data', `${i}`)
+            del.setAttribute('data', `${i}`)
 
             checkbox.classList.add("task-checkbox");
             text.classList.add("task-text");
@@ -108,16 +131,16 @@ const taskList = () => {
 
             edit.classList.add('task-btn');
             del.classList.add('task-btn');
-            
+
             edit.classList.add('task-edit-btn');
             del.classList.add('task-del-btn');
 
-            text.textContent=`${list[i].task}`;
-            date.textContent=`${list[i].date}`;
-            edit.textContent="edit";
-            del.textContent="X";
+            text.textContent = `${list[i].task}`;
+            date.textContent = `${list[i].date}`;
+            edit.textContent = "edit";
+            del.textContent = "X";
 
-           
+
             taskList.appendChild(task);
             task.appendChild(checkbox);
             task.appendChild(text);
@@ -127,21 +150,29 @@ const taskList = () => {
         }
     }
 
-    function addEventListener(){
-        addEventListenerByClass('task-del-btn',deleteElement);
-        addEventListenerByClass('task-edit-btn',editTask);
+    function addEventListener() {
+        addEventListenerByClass('task-del-btn', deleteElementbyEvent);
+        addEventListenerByClass('task-edit-btn', editTask);
     }
-    deleteElement('task-list');
+
+    function removeEventListener() {
+        removeEventListenerByClass('task-del-btn', deleteElementbyEvent);
+        removeEventListenerByClass('task-edit-btn', editTask);
+    }
+
+    deleteElementById('task-list');
     layout();
     addEventListener();
     displayAddTaskBtn(true);
     displayTaskInputBar(false);
-    
+
+    return {
+        removeEventListener
+    }
 }
 
 const createProject = () => {
-
-
+    console.log('create project')
 }
 
 export { getTitle, createTask, createProject }

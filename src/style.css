@@ -171,7 +171,7 @@ ul{
 li{
     display: flex;
     padding: 1rem;
-    line-height: 1.6rem;
+    line-height: 2rem;
     width: 95%;
 }
 .task-checkbox{

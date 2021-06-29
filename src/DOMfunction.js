@@ -1,18 +1,20 @@
+import { createTask } from "./layout";
 
-function editTask(){
-console.log('hrllo');
+function editTask(event){
+    const taskNum = document.querySelector(`#${event.target.id}`).getAttribute('data');
+    createTask(taskNum);
 }
 
-function deleteElement(input) {
-    //remove element by event
+function deleteElementbyEvent(event) {
     if (typeof input === 'object') {
-        const element = document.getElementById(`${input.target.id}`).parentNode;
+        const element = document.getElementById(`${event.target.id}`).parentNode;
         element.remove();
     }
+}
 
-    //remove element by id
-    if (typeof input === 'string') {
-            const elementID = document.getElementById(`${input}`);
+function deleteElementById(Id){
+    if (typeof Id === 'string') {
+        const elementID = document.getElementById(`${Id}`);
         if(elementID){
             elementID.remove();
         }
@@ -37,11 +39,10 @@ function displayTaskInputBar(statement){
     else {
         taskInput.style.display = "none";
     }
-
 }
 
 function addEventListenerById(Id,func){
-    document.querySelector(`#${Id}`).addEventListener('click',func)
+    document.querySelector(`#${Id}`).addEventListener('click',func);
 }
 
 function addEventListenerByClass(className,func){
@@ -49,11 +50,19 @@ function addEventListenerByClass(className,func){
     elements.forEach((ele) => ele.addEventListener('click',func));
 }
 
+function removeEventListenerByClass(className,func){
+    console.log(className);
+    const elements = Array.from(document.querySelectorAll(`.${className}`));
+    elements.forEach((ele)=>ele.removeEventListener('mousemove',func))
+}
+
 export{
       editTask,
-      deleteElement, 
+      deleteElementById,
+      deleteElementbyEvent, 
       displayAddTaskBtn,
       displayTaskInputBar, 
       addEventListenerById, 
-      addEventListenerByClass 
+      addEventListenerByClass,
+      removeEventListenerByClass 
     }
