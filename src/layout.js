@@ -66,6 +66,13 @@ const createTask = (taskNum) => {
            //hide edited task
            task.style.display = "none";
 
+           //preview task and date in task input bar for edit
+           taskBar.childNodes[0].value = task.childNodes[1].textContent;
+           const y = task.childNodes[2].textContent.slice(0,4);
+           const m = task.childNodes[2].textContent.slice(5,7);
+           const d = task.childNodes[2].textContent.slice(8,10);
+           taskBar.childNodes[1].value = y + '-' + m + '-' + d ;
+
         } else {
             taskContent.append(taskBar);
         }
