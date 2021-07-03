@@ -14,7 +14,7 @@ const addEventListener = () => {
     addEventListenerById('home',allTask);
     addEventListenerById('today',todayTask);
     addEventListenerById('add-project-btn',createProject);
-    addEventListenerById('add-task-btn',createTask);
+    addEventListenerById('add-task-btn',createTask.layout);
 }
 
 defaultTitle();

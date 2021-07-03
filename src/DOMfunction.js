@@ -1,14 +1,13 @@
 import { createTask } from "./layout";
 
-function editTask(event){
-    const taskNum = document.querySelector(`#${event.target.id}`).getAttribute('data');
-    createTask(taskNum);
-}
 
 function deleteElementbyEvent(event) {
     if (typeof event === 'object') {
         const element = document.getElementById(`${event.target.id}`).parentNode;
         element.remove();
+    }
+    if (event.target.id === 'cancel-task-input-btn'){
+        displayAddTaskBtn(true);
     }
 }
 
@@ -44,7 +43,9 @@ function displayTaskInputBar(statement){
 }
 
 function addEventListenerById(Id,func){
+    if(!!document){
     document.querySelector(`#${Id}`).addEventListener('click',func);
+    }
 }
 
 function addEventListenerByClass(className,func){
@@ -59,7 +60,7 @@ function removeEventListenerByClass(className,func){
 }
 
 export{
-      editTask,
+     
       deleteElementById,
       deleteElementbyEvent, 
       displayAddTaskBtn,
