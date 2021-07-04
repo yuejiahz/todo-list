@@ -1,6 +1,6 @@
 import './style.css';
 //import { title, buttonAddEventListener } from './UI.js'
-import { getTitle, taskInput, projectInput } from './layout.js'
+import { getTitle, taskInput, projectInput, taskList } from './layout.js'
 import { addEventListenerById } from './DOMfunction.js'
 
 
