@@ -8,7 +8,10 @@ Today's tab for quick creating list without needing to specify due date.
 Uses class to create new objects for new input.git 
 Data is stored in local storage for inter-session usage
 
-Modular pattern 
+
+Revealing modular pattern. Single responsibility principle
+less coupling
+IIFE 
 
 CSS:
 grid and flexbox

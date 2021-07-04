@@ -1,12 +1,37 @@
 import './style.css';
-import { title, buttonAddEventListener } from './UI.js'
-//import { DOM } from './UI2.js'
+//import { title, buttonAddEventListener } from './UI.js'
+import { getTitle, taskInput, projectInput } from './layout.js'
+import { addEventListenerById } from './DOMfunction.js'
 
 
-const taskContent = document.getElementById("task-content");
-taskContent.append(title());
-//console.log(DOM.create.title());
- //taskContent.append(DOM.create.title);
+const loadPage = (() => {  
+
+const defaultTitle = () => {
+   getTitle('Home');
+}
+
+const addEventListener = () => {
+    addEventListenerById('home',allTask);
+    addEventListenerById('today',todayTask);
+    addEventListenerById('add-project-btn',projectInput);
+    addEventListenerById('add-task-btn',taskInput.layout);
+}
+
+defaultTitle();
+addEventListener();
+});
+
+const allTask=(event)=>{
+    getTitle('Home');
+}
+
+function todayTask(event){
+    getTitle('Today');
+}
+
+window.addEventListener('DOMContentLoaded',loadPage);
+
+
 
 
 
