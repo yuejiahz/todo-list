@@ -1,6 +1,7 @@
 import { taskFunc } from "./task"
 import {
     deleteElementById,
+    deleteElementByEvent,
     displayAddTaskBtn,
     addEventListenerById,
     addEventListenerByClass,
@@ -61,7 +62,7 @@ const taskInput = (() => {
 
     function _addEventListener() {
         addEventListenerById('add-task-input-btn', taskFunc.add);
-        addEventListenerById('cancel-task-input-btn', taskFunc.del);
+        addEventListenerById('cancel-task-input-btn', deleteElementByEvent);
     }
 
     return {

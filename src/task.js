@@ -43,6 +43,7 @@ const taskFunc = (() => {
 
       taskArray[currentTaskNum].task = taskInput;
       taskArray[currentTaskNum].date = dueDateInput;
+      taskList.layout();
     }
 
     function del(event) {

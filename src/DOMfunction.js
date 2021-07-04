@@ -9,6 +9,19 @@ function deleteElementById(Id){
     }
 }
 
+function deleteElementByEvent(event){
+    console.log(event.target.id);
+    if (typeof event === 'object') {
+        const elementID = document.getElementById(`${event.target.id}`).parentNode;
+        if(elementID){
+            elementID.remove();
+        }
+    }
+    if(event.target.id === 'cancel-task-input-btn'){
+        displayAddTaskBtn(true);
+    }
+}
+
 function displayAddTaskBtn(statement) {
     const addTaskbtn = document.querySelector('#add-task-btn');
     if (statement) {
@@ -37,6 +50,7 @@ function removeEventListenerByClass(className,func){
 
 export{
       deleteElementById,
+      deleteElementByEvent,
       displayAddTaskBtn,
       addEventListenerById, 
       addEventListenerByClass,

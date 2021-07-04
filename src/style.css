@@ -35,8 +35,7 @@ h1{
 section#main-container{ 
     grid-area:main-container; 
     display: grid;
-    /* grid-template-columns: 15rem 50rem 1fr; */
-    grid-template-columns: 5rem 50rem 1fr;
+    grid-template-columns: 12rem 50rem 1fr;
     grid-template-areas:
     "nav-bar task-container right-column";
     overflow-y: auto;
@@ -76,8 +75,8 @@ justify-self: stretch;
     padding:0.8rem 0 0.8rem 0.5rem;
 }
 button#add-project{
-    width:7.8rem;
-    margin-left:0.5rem;
+    width:7rem;
+    margin-left:0.3rem;
 }
 #projects-title, div#projects{
     background-color: transparent;
@@ -88,7 +87,7 @@ div#project-content{
 }
 
 div#task-content{
-    background-color: wheat;
+    background-color: rgba(255, 247, 231, 0.741);
     padding: 0 1.3rem;
     overflow-x: visible;
 }
