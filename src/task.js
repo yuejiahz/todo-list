@@ -1,16 +1,24 @@
 //import { compareAsc } from 'date-fns'
 
-import { taskList, editTask } from "./layout";
+import { taskList, editTask, projectList } from "./layout"
 import {deleteElementById} from "./DOMfunction"
 
 
 class task {
-  constructor(task, dueDate, status, listName) {
+  constructor(task, dueDate, status, project) {
     this.task = task
     this.date = dueDate
     this.status = status
-    this.listName = listName
+    this.project = project
   }
+}
+
+const getTodayDate = () => {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0');
+  var yyyy = String(today.getFullYear());
+  return { dd, mm, yyyy };
 }
 
 const taskFunc = (() => {
@@ -27,7 +35,7 @@ const taskFunc = (() => {
         dueDateInput = dueDateInput.replace(/-/g, '/');
       }
 
-      let newTask = new task(taskInput, dueDateInput, 'unchecked', 'today');
+      let newTask = new task(taskInput, dueDateInput, 'unchecked', project);
       taskArray.push(newTask);
       taskList.layout();
     }
@@ -61,13 +69,22 @@ const taskFunc = (() => {
 
 })();
 
+const projectFunc = (()=> {
+  function add(){
+    const input = document.querySelector('#project-input').value;
+    console.log(input);
+    projectList(input);
+    deleteElementById('project-bar');
 
-const getTodayDate = () => {
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, '0');
-  var mm = String(today.getMonth() + 1).padStart(2, '0');
-  var yyyy = String(today.getFullYear());
-  return { dd, mm, yyyy };
-}
+  }
+  function del(){
+    deleteElementById('project-bar');
 
-export { getTodayDate, taskFunc }
+  }
+  return {
+    add,
+    del
+  }
+
+})();
+export { getTodayDate, taskFunc, projectFunc }

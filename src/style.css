@@ -35,7 +35,8 @@ h1{
 section#main-container{ 
     grid-area:main-container; 
     display: grid;
-    grid-template-columns: 12rem 50rem 1fr;
+    /* grid-template-columns: 12rem 50rem 1fr; */
+    grid-template-columns: 10rem 50rem 1fr;
     grid-template-areas:
     "nav-bar task-container right-column";
     overflow-y: auto;
@@ -193,6 +194,9 @@ li{
     text-align: center;
     position: relative;
     right:0;
+}
+#project-input{
+    width: 50%;
 }
 footer{
     grid-area:footer;

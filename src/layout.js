@@ -1,4 +1,4 @@
-import { taskFunc } from "./task"
+import { taskFunc, projectFunc } from "./task"
 import {
     deleteElementById,
     deleteElementByEvent,
@@ -212,7 +212,6 @@ const editTask = (() => {
 
     const getSelectedTask = (taskNum) => {
         taskNumArray.push(taskNum);
-        console.log(taskNumArray);
         return taskNumArray;
     }
 
@@ -239,8 +238,58 @@ return{
 })();
 
 
-const projectInput = () => {
-    console.log('create project')
-}
+const projectInput = (() => {
+    function _deletePreviousDOM(){
+        deleteElementById('project-bar');
+    }
+    function layout(){
+        _deletePreviousDOM();
+        const projectContent =  document.querySelector('#project-content');
+        const addProjectBtn = document.querySelector('#add-project-btn');
+        
+        const  projectBar =  document.createElement('div');
+        const input =  document.createElement('input');
+        const add = document.createElement('button');
+        const cancel = document.createElement('button');
 
-export { getTitle, taskInput, taskList, editTask, projectInput }
+        projectBar.id="project-bar";
+        input.id = "project-input";
+        add.id = "add-project-input-btn";
+        cancel.id = "cancel-project-input-btn";
+
+        input.setAttribute('type', 'text');
+        input.setAttribute('value', 'Default project');
+
+        add.textContent = "Add";
+        cancel.textContent = "Cancel";
+
+        projectBar.style.display="flex";
+        projectContent.appendChild(projectBar);
+        projectBar.appendChild(input);
+        projectBar.appendChild(add);
+        projectBar.appendChild(cancel);
+        _addEventListener();
+    }
+    function _addEventListener(){
+        addEventListenerById('add-project-input-btn',projectFunc.add);
+        addEventListenerById('cancel-project-input-btn',projectFunc.del);
+    }
+
+    return {
+        layout
+    }
+})();
+
+const projectList = ((projectName) => {
+    const projectContent =  document.querySelector('#project-content');
+    const project = document.createElement('div');
+    const del = document.createElement('button');
+
+    project.id="project"
+
+    project.textContent = projectName;
+    projectContent.append(project);
+
+});
+
+export { getTitle, taskInput, taskList, editTask, projectInput, projectList }

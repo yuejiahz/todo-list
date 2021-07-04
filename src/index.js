@@ -13,7 +13,7 @@ const defaultTitle = () => {
 const addEventListener = () => {
     addEventListenerById('home',allTask);
     addEventListenerById('today',todayTask);
-    addEventListenerById('add-project-btn',projectInput);
+    addEventListenerById('add-project-btn',projectInput.layout);
     addEventListenerById('add-task-btn',taskInput.layout);
 }
 
@@ -23,12 +23,16 @@ addEventListener();
 
 const allTask=(event)=>{
     getTitle('Home');
+    taskList.layout();
 }
 
 function todayTask(event){
     getTitle('Today');
+    taskList.layout();
 }
+function projectSelection(){
 
+}
 window.addEventListener('DOMContentLoaded',loadPage);
 
 
