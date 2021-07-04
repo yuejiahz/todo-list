@@ -1,8 +1,11 @@
 //import { compareAsc } from 'date-fns'
 
+import { taskList, editTask } from "./layout";
+import {deleteElementById} from "./DOMfunction"
+
 
 class task {
-  constructor(task, dueDate, status,listName) {
+  constructor(task, dueDate, status, listName) {
     this.task = task
     this.date = dueDate
     this.status = status
@@ -10,13 +13,13 @@ class task {
   }
 }
 
-const getTaskInput = (() => {
-  var taskArray = [];
-  
+const taskFunc = (() => {
 
-  function add(){
-    let taskInput = document.getElementById('task-input').value;
-    let dueDateInput = document.getElementById('dueDate').value;
+  var taskArray = [];
+
+    function add() {
+      let taskInput = document.getElementById('task-input').value;
+      let dueDateInput = document.getElementById('dueDate').value;
       if (!dueDateInput) {
         let today = getTodayDate();
         dueDateInput = today.yyyy + '/' + (today.mm) + '/' + today.dd;
@@ -24,32 +27,37 @@ const getTaskInput = (() => {
         dueDateInput = dueDateInput.replace(/-/g, '/');
       }
 
-      let newTask = new task(taskInput, dueDateInput, 'unchecked','today');    
+      let newTask = new task(taskInput, dueDateInput, 'unchecked', 'today');
       taskArray.push(newTask);
-
+      taskList.layout();
     }
 
-    function update(taskNum) {
+    function update() {
       let taskInput = document.getElementById('task-input').value;
       let dueDateInput = document.getElementById('dueDate').value;
       dueDateInput = dueDateInput.replace(/-/g, '/');
-      console.log(taskNum);
-      console.log(taskArray);
-      taskArray[`${taskNum}`].task = taskInput;
-      taskArray[`${taskNum}`].date = dueDateInput;
-      console.log(taskArray);
+
+      let selectedTaskArray = editTask.taskNum;
+      let currentSelectionIndex = editTask.taskNum.length-1;
+      let currentTaskNum = selectedTaskArray[currentSelectionIndex];
+
+      taskArray[currentTaskNum].task = taskInput;
+      taskArray[currentTaskNum].date = dueDateInput;
     }
 
-    function del(taskNum){
-      console.log(taskNum);
+    function del(event) {
+      const taskNum = event.path[1].getAttribute('data');
+      deleteElementById(`task-${taskNum}`);
+      taskArray.splice(taskNum,1);
     }
-  
+
   return {
-    list:taskArray,
+    list: taskArray,
     add,
     update,
     del
   }
+
 })();
 
 
@@ -61,4 +69,4 @@ const getTodayDate = () => {
   return { dd, mm, yyyy };
 }
 
-export { getTaskInput , getTodayDate }
+export { getTodayDate, taskFunc }

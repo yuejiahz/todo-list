@@ -1,7 +1,6 @@
-import { getTaskInput } from "./task"
+import { taskFunc } from "./task"
 import {
     deleteElementById,
-    deleteElementbyEvent,
     displayAddTaskBtn,
     addEventListenerById,
     addEventListenerByClass,
@@ -19,10 +18,14 @@ const getTitle = (text) => {
     taskContent.prepend(title);
 }
 
-const createTask = (() => {
+const taskInput = (() => {
+
+    function _deletePreviousDOM(){
+        deleteElementById('task-input-bar');
+    }
 
     function layout(event) {
-        deleteElementById('task-input-bar');
+       _deletePreviousDOM();
 
         const taskContent = document.querySelector('#task-content');
         const taskBar = document.createElement('div');
@@ -57,8 +60,8 @@ const createTask = (() => {
     }
 
     function _addEventListener() {
-        addEventListenerById('add-task-input-btn', taskList.add);
-        addEventListenerById('cancel-task-input-btn', deleteElementbyEvent);
+        addEventListenerById('add-task-input-btn', taskFunc.add);
+        addEventListenerById('cancel-task-input-btn', taskFunc.del);
     }
 
     return {
@@ -66,19 +69,9 @@ const createTask = (() => {
     }
 })();
 
-
 const taskList = (() => {
 
-    function add() {
-        getTaskInput.add();
-        _layout();
-    }
-    function update(taskNum) {
-        getTaskInput.update(taskNum);
-        _layout();
-    }
-
-    function _layout() {
+    function layout() {
 
         _deletePreviousDOM();
         const taskContent = document.querySelector('#task-content');
@@ -88,7 +81,7 @@ const taskList = (() => {
         taskList.id = "task-list";
         taskContent.insertBefore(taskList, taskBar);
 
-        for (let i in getTaskInput.list) {
+        for (let i in taskFunc.list) {
             const task = document.createElement('li');
             const checkbox = document.createElement('input');
             const text = document.createElement('p');
@@ -130,8 +123,8 @@ const taskList = (() => {
             edit.classList.add('task-edit-btn');
             del.classList.add('task-del-btn');
 
-            text.textContent = `${getTaskInput.list[i].task}`;
-            date.textContent = `${getTaskInput.list[i].date}`;
+            text.textContent = `${taskFunc.list[i].task}`;
+            date.textContent = `${taskFunc.list[i].date}`;
             edit.textContent = "edit";
             del.textContent = "X";
 
@@ -153,26 +146,26 @@ const taskList = (() => {
     }
 
     function _addEventListener() {
-        addEventListenerByClass('task-del-btn', deleteElementbyEvent);
+        addEventListenerByClass('task-del-btn', taskFunc.del);
         addEventListenerByClass('task-edit-btn', editTask.layout);
     }
     return {
-        add,
-        update
+       layout
     }
 })();
 
 
 const editTask = (() => {
 
+    let taskNumArray =[];
+
     function _deletePreviousDOM(){
         deleteElementById('task-input-bar');
     }
 
-    function layout(event) {
-        console.log(event);
+    function layout (event) {
         _deletePreviousDOM();
-        const taskContent = document.querySelector('#task-content');
+
         const taskBar = document.createElement('div');
         const input = document.createElement('input');
         const date = document.createElement('input');
@@ -203,39 +196,50 @@ const editTask = (() => {
         const taskNum = document.querySelector(`#${event.target.id}`).getAttribute('data');
         const task = document.querySelector(`#task-${taskNum}`);
         const selectTaskList = document.querySelector('#task-list');
+        //insert task input bar before selected edit list
+        selectTaskList.insertBefore(taskBar, task);
         //display hidden task
         selectTaskList.childNodes.forEach((list) => list.style.display = "flex");
-        //insert task input bar before selected edit list
-        //selectTaskList.insertBefore(taskBar, task);
         //hide edited task
         task.style.display = "none";
+        _previewTaskInfoInInputBar(taskNum);
+        _addEventListener();
+        getSelectedTask(taskNum);
+        displayAddTaskBtn(false);
 
-        //preview task and date in task input bar 
+    }
+
+    const getSelectedTask = (taskNum) => {
+        taskNumArray.push(taskNum);
+        console.log(taskNumArray);
+        return taskNumArray;
+    }
+
+    function _previewTaskInfoInInputBar(taskNum){
+        const task = document.querySelector(`#task-${taskNum}`);
+        const taskBar = document.querySelector("#task-input-bar");
         taskBar.childNodes[0].value = task.childNodes[1].textContent;
         const y = task.childNodes[2].textContent.slice(0, 4);
         const m = task.childNodes[2].textContent.slice(5, 7);
         const d = task.childNodes[2].textContent.slice(8, 10);
         taskBar.childNodes[1].value = y + '-' + m + '-' + d;
-        _addEventListener();
-        displayAddTaskBtn(false);
-        taskList.update(taskNum);
     }
 
     function _addEventListener() {
-        addEventListenerById('add-task-input-btn', taskList.update);
-        addEventListenerById('cancel-task-input-btn', deleteElementbyEvent);
+         addEventListenerById('add-task-input-btn', taskFunc.update);
+         addEventListenerById('cancel-task-input-btn', taskFunc.del);
     }
-   
 
 return{
-    layout
+    layout,
+    taskNum:taskNumArray
 }
 
 })();
 
 
-const createProject = () => {
+const projectInput = () => {
     console.log('create project')
 }
 
-export { getTitle, createTask, createProject }
+export { getTitle, taskInput, taskList, editTask, projectInput }
