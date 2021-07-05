@@ -119,10 +119,8 @@ const taskList = (() => {
             task.appendChild(edit);
             task.appendChild(del);
             _addEventListener();
-            
             displayAddTaskBtn(true);
-        }
-      
+        } 
     }
 
     function _addEventListener() {

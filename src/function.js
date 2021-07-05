@@ -1,7 +1,7 @@
 import { taskList, editTask } from "./taskLayout";
 import { deleteElementById} from "./DOMfunction";
 import { projectList } from "./projectLayout";
-import { navInfo } from "./index";
+import { getTitle, navInfo } from "./index";
 
 class task {
   constructor(task, dueDate, status, listNum, listName) {
@@ -79,18 +79,27 @@ const projectFunc = (()=> {
     function add(){
       const input = document.querySelector('#project-input').value;
       projectArray.push(input);
-      navInfo.list.push(input);
+      navInfo.updateList(input);
       projectList.layout();
     }
 
     function update(){
+      const input = document.querySelector('#project-input').value;
+      
+      let navIndex = navInfo.index;
+      let projectIndex = navIndex-2;
+      projectArray[projectIndex] = input;
+      navInfo.editList(input);
+      getTitle(input);
 
+      projectList.layout();
+      deleteElementById('project-edit-btn');
     }
 
     function del(){
       deleteElementById('project-bar');
-
     }
+
   return {
     list: projectArray,
     add,

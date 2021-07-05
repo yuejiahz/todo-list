@@ -51,11 +51,11 @@ const projectInput = (() => {
 const projectList = (() => {
 
     const projectContent = document.querySelector('#project-content');
-    
+
     function layout() {
 
         _deletePreviousDOM();
-
+        console.log(projectFunc.list);
         for (let i in projectFunc.list) {
             const project = document.createElement('div');
 
@@ -68,7 +68,6 @@ const projectList = (() => {
             project.setAttribute('nav',`${navCode}`);
 
             project.textContent = projectFunc.list[i];
-          
             projectContent.appendChild(project);
         }
         _addEventListener();
@@ -92,49 +91,67 @@ const projectList = (() => {
 
 const editProject = (() => {
 
-    // function layout() {
-    //     _deletePreviousDOM();
+    function addEditBtn() {
+        const title = document.querySelector('#title');
+        const edit = document.createElement('button');
+        edit.textContent = "edit";
+        edit.id = "project-edit-btn";
+        title.appendChild(edit);
 
-    //     const project = document.createElement('div');
-    //     const edit = document.createElement('button');
-    //     const del = document.createElement('button');
+        _addEventListenerToEditBtn();
+    }
 
-    //     project.classList.add('project');
-    //     edit.classList.add('project-btn');
-    //     del.classList.add('project-btn');
+    function layout() {
+        _deletePreviousDOM();
+       
 
-    //     project.setAttribute('project', `${i}`);
-    //     project.setAttribute('name', projectFunc.list[i]);
+        const title = document.querySelector('#title');
+        const projectBar = document.createElement('div');
+        const input = document.createElement('input');
+        const add = document.createElement('button');
+        const cancel = document.createElement('button');
 
-    //     let navCode = Number(i) + 2;
-    //     project.setAttribute('nav',`${navCode}`);
+        projectBar.id = "project-bar";
+        input.id = "project-input";
+        add.id = "add-project-input-btn";
+        cancel.id = "cancel-project-input-btn";
 
-    //     project.id = `project-${i}`;
-    //     project.textContent = projectFunc.list[i];
-    //     edit.textContent = 'edit';
-    //     del.textContent = 'X';
+        input.setAttribute('type', 'text');
 
-    //     edit.style.display = 'none';
-    //     del.style.display = 'none';
+        let lastIndex = navInfo.selectedProject.length-1;
+        let lastSelectedProject = navInfo.selectedProject[lastIndex]
+        input.setAttribute('value', `${lastSelectedProject}`);
 
-    //     projectContent.appendChild(project);
-    //     project.appendChild(edit);
-    //     project.appendChild(del);
+        add.textContent = "Add";
+        cancel.textContent = "X";
 
-    //     _addEventListener();
-    // }
+        projectBar.style.display = "flex";
+        title.appendChild(projectBar);
+        projectBar.appendChild(input);
+        projectBar.appendChild(add);
+        projectBar.appendChild(cancel);
 
-    // function _deletePreviousDOM() {
-    //     deleteElementById('project-bar');
-    // }
+        _addEventListenerToInputBar();
+    }
 
-    // function _addEventListener() {
-        
-    // }
+    function _deletePreviousDOM() {
+        deleteElementById('project-bar');
+    }
 
-    // return {
-    //     layout
-    // }
+    function _addEventListenerToInputBar() {
+        const add =  document.getElementById('add-project-input-btn');
+        const cancel = document.getElementById('cancel-project-input-btn');
+        add.addEventListener('click', projectFunc.update);
+        cancel.addEventListener('click', projectFunc.del);
+    }
+
+    function _addEventListenerToEditBtn() {
+        document.querySelector('#project-edit-btn').addEventListener('click', layout);
+    }
+
+    return {
+        addEditBtn
+    }
 })();
 
 export {  projectInput, projectList, editProject }
