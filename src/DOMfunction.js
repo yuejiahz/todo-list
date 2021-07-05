@@ -1,5 +1,3 @@
-
-
 function deleteElementById(Id){
     if (typeof Id === 'string') {
         const elementID = document.getElementById(`${Id}`);
@@ -26,32 +24,13 @@ function displayAddTaskBtn(statement) {
     if (statement) {
         addTaskbtn.style.display = "block"
     }
-    else {
+    else if (!statement) {
         addTaskbtn.style.display = "none";
     }
-}
-
-function addEventListenerById(Id,func){
-    if(!!document){
-    document.querySelector(`#${Id}`).addEventListener('click',func);
-    }
-}
-
-function addEventListenerByClass(className,func){
-    const elements = Array.from(document.querySelectorAll(`.${className}`));
-    elements.forEach((ele) => ele.addEventListener('click',func));
-}
-
-function removeEventListenerByClass(className,func){
-    const elements = Array.from(document.querySelectorAll(`.${className}`));
-    elements.forEach((ele)=>ele.removeEventListener('mousemove',func))
 }
 
 export{
       deleteElementById,
       deleteElementByEvent,
       displayAddTaskBtn,
-      addEventListenerById, 
-      addEventListenerByClass,
-      removeEventListenerByClass 
     }

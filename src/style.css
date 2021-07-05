@@ -61,6 +61,9 @@ section#right-column{
 #project-title, #title {
     padding: 1rem 0 1rem 0.3rem;
 }
+#projects-container{
+    padding-left: 10%;
+}
 .nav-item{
 justify-self: stretch;
 }
@@ -68,17 +71,15 @@ justify-self: stretch;
     background-color:#cac5c5;
 }
 .nav-item,#add-task-btn{
-    border: none;
     background-color:#dddcdc;
+    margin-left: 5%;
 }
+
 #home, #today{
     margin:0.3rem 0 0.3rem 0;
     padding:0.8rem 0 0.8rem 0.5rem;
 }
-button#add-project{
-    width:7rem;
-    margin-left:0.3rem;
-}
+
 #projects-title, div#projects{
     background-color: transparent;
 }
@@ -93,25 +94,21 @@ div#task-content{
     overflow-x: visible;
 }
 
-button#add-task-btn{
-    text-align: center;
-}
 button#add-task-btn:hover{
     background-color:#cac5c5;
 }
 button.add-btn{
     border-radius: 20px;
     color: rgb(124, 82, 59);
-    margin:0.2rem;
     padding:0.8rem;
-    width:100%;
+    margin: 0.3rem 0;
+    width:90%;
     border: none;
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
 }
 
 #task-list{
-    min-height:1.5rem;
     display: flex;
 }
 #task-input-bar{
@@ -175,9 +172,10 @@ li{
     width: 95%;
 }
 .task-checkbox{
+    left:0;
     size:3rem;
     padding:1rem;
-    margin:auto;
+    margin: auto;
 }
 .task-text{
     flex-grow: 1;
@@ -196,7 +194,15 @@ li{
     right:0;
 }
 #project-input{
-    width: 50%;
+    width: 60%;
+}
+.project{
+    line-height: 2rem;
+    padding: 0.2rem;
+}
+.project:hover{
+    background-color: rgba(208, 209, 209, 0.57);
+    border-radius:5px;
 }
 footer{
     grid-area:footer;

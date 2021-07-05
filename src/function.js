@@ -1,25 +1,25 @@
-//import { compareAsc } from 'date-fns'
-
-import { taskList, editTask, projectList } from "./layout"
-import {deleteElementById} from "./DOMfunction"
-
+import { taskList, editTask } from "./taskLayout";
+import { deleteElementById} from "./DOMfunction";
+import { projectList } from "./projectLayout";
+import { navInfo } from "./index";
 
 class task {
-  constructor(task, dueDate, status, project) {
+  constructor(task, dueDate, status, listNum, listName) {
     this.task = task
     this.date = dueDate
     this.status = status
-    this.project = project
+    this.listNum = listNum
+    this.listName = listName
   }
 }
 
-const getTodayDate = () => {
+const getTodayDate = (() => {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0');
   var yyyy = String(today.getFullYear());
   return { dd, mm, yyyy };
-}
+})
 
 const taskFunc = (() => {
 
@@ -28,15 +28,18 @@ const taskFunc = (() => {
     function add() {
       let taskInput = document.getElementById('task-input').value;
       let dueDateInput = document.getElementById('dueDate').value;
-      if (!dueDateInput) {
-        let today = getTodayDate();
-        dueDateInput = today.yyyy + '/' + (today.mm) + '/' + today.dd;
-      } else {
-        dueDateInput = dueDateInput.replace(/-/g, '/');
-      }
+      let list = document.getElementById('title').textContent;
 
-      let newTask = new task(taskInput, dueDateInput, 'unchecked', project);
+        if (!dueDateInput) {
+          let today = getTodayDate();
+          dueDateInput = today.yyyy + '/' + (today.mm) + '/' + today.dd;
+        } else {
+          dueDateInput = dueDateInput.replace(/-/g, '/');
+        }
+
+      let newTask = new task(taskInput, dueDateInput, 'unchecked', list);
       taskArray.push(newTask);
+      console.log(taskArray);
       taskList.layout();
     }
 
@@ -70,19 +73,28 @@ const taskFunc = (() => {
 })();
 
 const projectFunc = (()=> {
-  function add(){
-    const input = document.querySelector('#project-input').value;
-    console.log(input);
-    projectList(input);
-    deleteElementById('project-bar');
 
-  }
-  function del(){
-    deleteElementById('project-bar');
+  let projectArray=[];
 
-  }
+    function add(){
+      const input = document.querySelector('#project-input').value;
+      projectArray.push(input);
+      navInfo.list.push(input);
+      projectList.layout();
+    }
+
+    function update(){
+
+    }
+
+    function del(){
+      deleteElementById('project-bar');
+
+    }
   return {
+    list: projectArray,
     add,
+    update,
     del
   }
 
