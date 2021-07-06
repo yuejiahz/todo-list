@@ -89,7 +89,7 @@ div#project-content{
 }
 
 div#task-content{
-    background-color: rgba(255, 247, 231, 0.741);
+    background-color: rgba(255, 247, 231, 0.405);
     padding: 0 1.3rem;
     overflow-x: visible;
 }
@@ -124,11 +124,14 @@ button.add-btn{
 #dueDate,
 button#add-task-input-btn,
 button#cancel-task-input-btn,
-button.task-btn
+button.task-btn,
+.project-btn, 
+input
 {
     border-radius: 5px;
     border: none;
     margin:0 0.1rem 0 0.1rem;
+    line-height: 2rem;
 }
 
 #task-input{
@@ -141,14 +144,13 @@ button.task-btn{
     font-weight: bold;
 }
 
-button#add-task-input-btn{
+button#add-task-input-btn,.add-small-btn{
     background-color: lightgreen;
-    width: 20%;
-
+    flex-grow: 1;
 }
-button#cancel-task-input-btn,button.task-delete-btn{
-    background-color: lightcoral;
-    width: 5%;
+button#cancel-task-input-btn,button.task-delete-btn,.del-btn{
+    background-color: lightcoral;   
+    flex-grow: 0.1;
 }
 button#cancel-task-input-btn:hover,
 .task-delete-btn:hover{
@@ -163,7 +165,7 @@ background-color: rgb(214, 218, 210);
 ul{
     display: flex;
     flex-direction: column;
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.44);
 }
 li{
     display: flex;
@@ -203,6 +205,13 @@ li{
 .project:hover{
     background-color: rgba(208, 209, 209, 0.57);
     border-radius:5px;
+}
+.edit-project{
+    position: relative;
+    left: 60%;
+}
+#project-input{
+    border:solid 2px;
 }
 footer{
     grid-area:footer;

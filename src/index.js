@@ -112,7 +112,7 @@ const display = (() => {
         navInfo.select(event);
         getTitle(selectedNavItem.textContent);
         taskList.layout();
-        editProject.addEditBtn();
+        editProject.addBtn();
         displayAddTaskBtn(true);
     }
 

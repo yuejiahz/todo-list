@@ -21,6 +21,10 @@ const projectInput = (() => {
         input.id = "project-input";
         add.id = "add-project-input-btn";
         cancel.id = "cancel-project-input-btn";
+        add.classList.add('add-small-btn');
+        cancel.classList.add('del-btn');
+        add.classList.add('project-btn');
+        cancel.classList.add('project-btn');
 
         input.setAttribute('type', 'text');
         input.setAttribute('value', 'Default project');
@@ -95,11 +99,18 @@ const editProject = (() => {
         const edit = document.createElement('button');
         edit.textContent = "edit";
         edit.id = "project-edit-btn";
+        edit.classList.add('project-btn');
+        edit.classList.add('edit-project');
         title.appendChild(edit);
+
 
         const del = document.createElement('button');
         del.textContent = "Delete";
         del.id = "project-del-btn";
+        del.classList.add('project-btn');
+        del.classList.add('del-btn');
+        del.classList.add('edit-project');
+
         title.appendChild(del);
 
         _addEventListenerToBtn();
@@ -118,6 +129,10 @@ const editProject = (() => {
         input.id = "project-input";
         add.id = "add-project-input-btn";
         cancel.id = "cancel-project-input-btn";
+        add.classList.add('add-small-btn');
+        cancel.classList.add('del-btn');
+        add.classList.add('project-btn');
+        cancel.classList.add('project-btn');
 
         input.setAttribute('type', 'text');
 
@@ -153,7 +168,7 @@ const editProject = (() => {
     }
 
     return {
-        addEditBtn: addBtn
+         addBtn,
     }
 })();
 

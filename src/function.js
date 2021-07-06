@@ -97,7 +97,7 @@ const projectFunc = (()=> {
       let lastIndex = navInfo.projectIndexArr[navInfo.projectIndexArr.length-1];
       projectArray.splice(lastIndex,1);
       navInfo.delList();
-      ///remember to remove all task
+      //
       projectList.layout();
     }
 
