@@ -105,7 +105,7 @@ const editProject = (() => {
 
 
         const del = document.createElement('button');
-        del.textContent = "Delete";
+        del.textContent = "Del";
         del.id = "project-del-btn";
         del.classList.add('project-btn');
         del.classList.add('del-btn');

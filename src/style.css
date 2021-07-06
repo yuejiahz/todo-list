@@ -150,13 +150,13 @@ button#add-task-input-btn,.add-small-btn{
 }
 button#cancel-task-input-btn,button.task-delete-btn,.del-btn{
     background-color: lightcoral;   
-    flex-grow: 0.1;
+    width: 2rem;
 }
 button#cancel-task-input-btn:hover,
-.task-delete-btn:hover{
+.task-delete-btn:hover, .del-btn:hover{
     background-color: rgb(194, 102, 102);
 }
-button#add-task-input-btn:hover{
+button#add-task-input-btn:hover,.add-small-btn:hover{
     background-color: rgb(105, 182, 105);
 }
 button.task-edit-btn:hover{
