@@ -1,6 +1,6 @@
 import { projectFunc } from "./function";
 import { display, navInfo } from "./index";
-import { deleteElementById } from './DOMfunction';
+import { deleteElementByEvent, deleteElementById } from './DOMfunction';
 
 
 const projectInput = (() => {
@@ -55,7 +55,6 @@ const projectList = (() => {
     function layout() {
 
         _deletePreviousDOM();
-        console.log(projectFunc.list);
         for (let i in projectFunc.list) {
             const project = document.createElement('div');
 
@@ -81,7 +80,7 @@ const projectList = (() => {
 
     function _addEventListener() {
         const projects = Array.from(document.querySelectorAll('.project'));
-        projects.forEach((ele) => ele.addEventListener('click',display.taskByProject));
+        projects.forEach((ele) => ele.addEventListener('click',display.taskByNavItem));
     }
 
     return {
@@ -91,19 +90,23 @@ const projectList = (() => {
 
 const editProject = (() => {
 
-    function addEditBtn() {
+    function addBtn() {
         const title = document.querySelector('#title');
         const edit = document.createElement('button');
         edit.textContent = "edit";
         edit.id = "project-edit-btn";
         title.appendChild(edit);
 
-        _addEventListenerToEditBtn();
+        const del = document.createElement('button');
+        del.textContent = "Delete";
+        del.id = "project-del-btn";
+        title.appendChild(del);
+
+        _addEventListenerToBtn();
     }
 
     function layout() {
         _deletePreviousDOM();
-       
 
         const title = document.querySelector('#title');
         const projectBar = document.createElement('div');
@@ -118,8 +121,7 @@ const editProject = (() => {
 
         input.setAttribute('type', 'text');
 
-        let lastIndex = navInfo.selectedProject.length-1;
-        let lastSelectedProject = navInfo.selectedProject[lastIndex]
+        let lastSelectedProject = navInfo.project[navInfo.project.length-1];
         input.setAttribute('value', `${lastSelectedProject}`);
 
         add.textContent = "Add";
@@ -142,15 +144,16 @@ const editProject = (() => {
         const add =  document.getElementById('add-project-input-btn');
         const cancel = document.getElementById('cancel-project-input-btn');
         add.addEventListener('click', projectFunc.update);
-        cancel.addEventListener('click', projectFunc.del);
+        cancel.addEventListener('click', deleteElementByEvent);
     }
 
-    function _addEventListenerToEditBtn() {
+    function _addEventListenerToBtn() {
         document.querySelector('#project-edit-btn').addEventListener('click', layout);
+        document.querySelector('#project-del-btn').addEventListener('click', projectFunc.del);
     }
 
     return {
-        addEditBtn
+        addEditBtn: addBtn
     }
 })();
 

@@ -15,32 +15,58 @@ const getTitle = (text) => {
 }
 
 const navInfo = (() => {
-    var listTitleArray = ['home','today'];
+    var list = ['home','today'];
     var selectedProject = [];
-    var navNum, projectName;
+    var selectedNavItem = [];
+    var navNum = []; 
+    var proNum = [];
+    var lastSelectedNum; 
 
     function updateList(input){
-        listTitleArray.push(input);
+        list.push(input);
     }
 
     function editList(input){
-       listTitleArray[navNum] = input;
+       list[lastSelectedNum] = input;
+    }
+    function delList(){
+        list.splice(lastSelectedNum,1);
     }
 
-    function _selectNav(event){
-        navNum = document.querySelector(`#${event.target.id}`).getAttribute('nav');
+    function select(event){
+        let num = document.querySelector(`#${event.target.id}`).getAttribute('nav');
+        navNum.push(num);
+        lastSelectedNum = navNum[navNum.length-1];
+        _getCurrentNavItem(lastSelectedNum);
+        _getCurrentProject(lastSelectedNum);
+        getProjectIndex(lastSelectedNum);
     }
-    function getCurrentProject(event){
-        _selectNav(event);
-        projectName = listTitleArray[navNum];
+    function _getCurrentProject(num){
+        if(num > 1){
+        let projectName = list[num];
         selectedProject.push(projectName);
+        }
+    }
+    function getProjectIndex(num){
+        if(num > 1){ 
+        num=num-2;
+        proNum.push(num);
+        }
+    }
+    function _getCurrentNavItem(num){
+        let navItem = list[num];
+        selectedNavItem.push(navItem);
     }
 
     return {
         updateList,
         editList,
-        getCurrentProject,
-        selectedProject
+        delList,
+        select,
+        project: selectedProject,
+        nav: selectedNavItem,
+        list: list,
+        projectIndexArr: proNum
     }  
 })();
 
@@ -68,32 +94,32 @@ const display = (() => {
 
     function allTask (event) {
         getTitle('Home');
-        navInfo.getCurrentProject(event);
+        navInfo.select(event);
+        //taskFunc.selectedList = taskFunc.list.filter((list)=> list));
         taskList.layout();
         displayAddTaskBtn(false);
     }
 
     function todayTask (event) {
         getTitle('Today');
-        navInfo.getCurrentProject(event);
+        navInfo.select(event);
         taskList.layout();
         displayAddTaskBtn(true);
     }
 
-    function taskByProject (event){
-        const selectedProject = document.querySelector(`#${event.target.id}`);
-        navInfo.getCurrentProject(event);
-        getTitle(selectedProject.textContent);
+    function taskByNavItem (event){
+        const selectedNavItem = document.querySelector(`#${event.target.id}`);
+        navInfo.select(event);
+        getTitle(selectedNavItem.textContent);
         taskList.layout();
         editProject.addEditBtn();
         displayAddTaskBtn(true);
-        
     }
 
 return{
     allTask,
     todayTask,
-    taskByProject
+    taskByNavItem
 }
 })();
 

@@ -4,11 +4,9 @@ import { projectList } from "./projectLayout";
 import { getTitle, navInfo } from "./index";
 
 class task {
-  constructor(task, dueDate, status, listNum, listName) {
+  constructor(task, dueDate, listName) {
     this.task = task
     this.date = dueDate
-    this.status = status
-    this.listNum = listNum
     this.listName = listName
   }
 }
@@ -24,11 +22,12 @@ const getTodayDate = (() => {
 const taskFunc = (() => {
 
   var taskArray = [];
+  var selectedTaskArray = [];
 
     function add() {
       let taskInput = document.getElementById('task-input').value;
       let dueDateInput = document.getElementById('dueDate').value;
-      let list = document.getElementById('title').textContent;
+      let listName = navInfo.nav[navInfo.nav.length-1];
 
         if (!dueDateInput) {
           let today = getTodayDate();
@@ -37,7 +36,7 @@ const taskFunc = (() => {
           dueDateInput = dueDateInput.replace(/-/g, '/');
         }
 
-      let newTask = new task(taskInput, dueDateInput, 'unchecked', list);
+      let newTask = new task(taskInput, dueDateInput, listName);
       taskArray.push(newTask);
       console.log(taskArray);
       taskList.layout();
@@ -65,6 +64,7 @@ const taskFunc = (() => {
 
   return {
     list: taskArray,
+    selectedList : selectedTaskArray,
     add,
     update,
     del
@@ -74,7 +74,7 @@ const taskFunc = (() => {
 
 const projectFunc = (()=> {
 
-  let projectArray=[];
+  var projectArray=[];
 
     function add(){
       const input = document.querySelector('#project-input').value;
@@ -85,19 +85,20 @@ const projectFunc = (()=> {
 
     function update(){
       const input = document.querySelector('#project-input').value;
-      
-      let navIndex = navInfo.index;
-      let projectIndex = navIndex-2;
-      projectArray[projectIndex] = input;
       navInfo.editList(input);
+      let lastIndex = navInfo.projectIndexArr[navInfo.projectIndexArr.length-1];
+      projectArray[lastIndex]=input;
       getTitle(input);
-
-      projectList.layout();
       deleteElementById('project-edit-btn');
+      projectList.layout();
     }
 
     function del(){
-      deleteElementById('project-bar');
+      let lastIndex = navInfo.projectIndexArr[navInfo.projectIndexArr.length-1];
+      projectArray.splice(lastIndex,1);
+      navInfo.delList();
+      ///remember to remove all task
+      projectList.layout();
     }
 
   return {
