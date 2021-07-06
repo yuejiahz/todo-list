@@ -57,6 +57,7 @@ const taskFunc = (() => {
     }
 
     function del(event) {
+      console.log(event);
       const taskNum = event.path[1].getAttribute('data');
       deleteElementById(`task-${taskNum}`);
       taskArray.splice(taskNum,1);

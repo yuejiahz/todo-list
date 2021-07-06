@@ -67,6 +67,10 @@ const taskList = (() => {
         deleteElementById('task-input-bar');
     }
 
+    function filterByListName(listName){
+        return listName == `${listName}`;
+    }
+
     function layout() {
 
         _deletePreviousDOM();
@@ -126,18 +130,28 @@ const taskList = (() => {
     function _addEventListener() {
 
         if(!!document){
-            const del = Array.from(document.querySelectorAll('.task-del-btn'));
+            const del = Array.from(document.querySelectorAll('.task-delete-btn'));
             const edit = Array.from(document.querySelectorAll('.task-edit-btn'));
-            del.forEach((ele)=>{
-                ele.addEventListener('click',taskFunc.del);                
-                });
-            edit.forEach((ele)=>{
-                ele.addEventListener('click',editTask.layout);                
-                });
+            const checkboxes = Array.from(document.querySelectorAll('.task-checkbox'));
+            del.forEach((ele)=> ele.addEventListener('click',taskFunc.del));
+            edit.forEach((ele)=> ele.addEventListener('click',editTask.layout));
+            checkboxes.forEach((ele)=> ele.addEventListener('change',checkboxToggle));
+        }
+    }
+
+    function checkboxToggle(){
+        const taskNum= this.getAttribute('data');
+        const taskText = document.querySelector(`#task-${taskNum}`).childNodes[1];
+        if(this.checked){
+            taskText.classList.add('strike');
+        } 
+        else {
+            taskText.classList.remove('strike');
         }
     }
     return {
-        layout
+        layout,
+        filterByListName
     }
 })();
 

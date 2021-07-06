@@ -34,12 +34,14 @@ const navInfo = (() => {
     }
 
     function select(event){
+        if (event){
         let num = document.querySelector(`#${event.target.id}`).getAttribute('nav');
         navNum.push(num);
         lastSelectedNum = navNum[navNum.length-1];
         _getCurrentNavItem(lastSelectedNum);
         _getCurrentProject(lastSelectedNum);
         getProjectIndex(lastSelectedNum);
+        }
     }
     function _getCurrentProject(num){
         if(num > 1){
@@ -72,9 +74,8 @@ const navInfo = (() => {
 
 const loadPage = (() => {  
 
-const defaultTitle = () => {
-   getTitle('Home');
-   displayAddTaskBtn(false);
+const defaultDisplay = () => {
+   display.todayTask();
 }
 
 const addEventListener = () => {
@@ -86,7 +87,7 @@ const addEventListener = () => {
         } 
  }
 
-defaultTitle();
+defaultDisplay();
 addEventListener();
 });
 

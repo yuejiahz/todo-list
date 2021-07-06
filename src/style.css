@@ -184,6 +184,9 @@ li{
     padding-left: 0.8rem;
     padding-right: 0.8rem;
 }
+.strike{
+    text-decoration: line-through;
+}
 .task-date{
     width: 5.5rem;
     right:5rem;
