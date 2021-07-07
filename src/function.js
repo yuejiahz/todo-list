@@ -1,5 +1,5 @@
 import { taskList, editTask } from "./taskLayout";
-import { deleteElementById} from "./DOMfunction";
+import { deleteElementById, displayAddTaskBtn} from "./DOMfunction";
 import { projectList } from "./projectLayout";
 import { getTitle, navInfo } from "./index";
 
@@ -86,7 +86,9 @@ const projectFunc = (()=> {
       const input = getInput();
       displayProjectArr.push(input);
       navInfo.updateList(input);
+      navInfo.select(input);
       projectList.layout();
+      displayAddTaskBtn(true);
     }
 
     function update(){
