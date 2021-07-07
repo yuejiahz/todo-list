@@ -61,7 +61,7 @@ const taskFunc = (() => {
     }
 
     function del(event) {
-      const taskNum = getTaskNum();
+      const taskNum = getTaskNum(event);
       deleteElementById(`task-${taskNum}`);
       taskArray.splice(taskNum,1);
     }
@@ -115,4 +115,4 @@ const projectFunc = (()=> {
   }
 
 })();
-export { getTodayDate, taskFunc, projectFunc }
+export { taskFunc, projectFunc }
