@@ -6,7 +6,6 @@ import {
     displayAddTaskBtn
 } from './DOMfunction.js'
 
-
 const taskInput = (() => {
 
     function _deletePreviousDOM() {

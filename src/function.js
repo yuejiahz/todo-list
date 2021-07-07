@@ -19,46 +19,49 @@ const getTodayDate = (() => {
   return { dd, mm, yyyy };
 })
 
+const setTask = () =>  document.getElementById('task-input').value;
+const getDate = () => document.getElementById('dueDate').value;
+const getList = () => navInfo.nav[navInfo.nav.length-1];
+const getTaskNum = (event) => event.path[1].getAttribute('data');
+
 const taskFunc = (() => {
 
   var taskArray = [];
   var selectedTaskArray = [];
 
     function add() {
-      let taskInput = document.getElementById('task-input').value;
-      let dueDateInput = document.getElementById('dueDate').value;
-      let listName = navInfo.nav[navInfo.nav.length-1];
+      let taskText = setTask();
+      let date = getDate();
+      let list = getList();
 
-        if (!dueDateInput) {
+        if (!date) {
           let today = getTodayDate();
-          dueDateInput = today.yyyy + '/' + (today.mm) + '/' + today.dd;
+          date = today.yyyy + '/' + (today.mm) + '/' + today.dd;
         } else {
-          dueDateInput = dueDateInput.replace(/-/g, '/');
+          date = date.replace(/-/g, '/');
         }
 
-      let newTask = new task(taskInput, dueDateInput, listName);
+      let newTask = new task(taskText, date, list);
       taskArray.push(newTask);
       console.log(taskArray);
       taskList.layout();
     }
 
     function update() {
-      let taskInput = document.getElementById('task-input').value;
-      let dueDateInput = document.getElementById('dueDate').value;
-      dueDateInput = dueDateInput.replace(/-/g, '/');
+      let task = setTask();
+      let date = getDate();
 
-      let selectedTaskArray = editTask.taskNum;
-      let currentSelectionIndex = editTask.taskNum.length-1;
-      let currentTaskNum = selectedTaskArray[currentSelectionIndex];
+      date = date.replace(/-/g, '/');
 
-      taskArray[currentTaskNum].task = taskInput;
-      taskArray[currentTaskNum].date = dueDateInput;
+      let index = editTask.taskNum[editTask.taskNum.length-1];
+
+      taskArray[index].task = task;
+      taskArray[index].date = date;
       taskList.layout();
     }
 
     function del(event) {
-      console.log(event);
-      const taskNum = event.path[1].getAttribute('data');
+      const taskNum = getTaskNum();
       deleteElementById(`task-${taskNum}`);
       taskArray.splice(taskNum,1);
     }
@@ -75,35 +78,37 @@ const taskFunc = (() => {
 
 const projectFunc = (()=> {
 
-  var projectArray=[];
+  var displayProjectArr=[];
+  const getInput = () => document.querySelector('#project-input').value;
+  const getIndex = () => navInfo.projectIndexArr[navInfo.projectIndexArr.length-1];
 
     function add(){
-      const input = document.querySelector('#project-input').value;
-      projectArray.push(input);
+      const input = getInput();
+      displayProjectArr.push(input);
       navInfo.updateList(input);
       projectList.layout();
     }
 
     function update(){
-      const input = document.querySelector('#project-input').value;
+      const input = getInput();
       navInfo.editList(input);
-      let lastIndex = navInfo.projectIndexArr[navInfo.projectIndexArr.length-1];
-      projectArray[lastIndex]=input;
+      let index = getIndex();
+      displayProjectArr[index]=input;
       getTitle(input);
       deleteElementById('project-edit-btn');
       projectList.layout();
     }
 
     function del(){
-      let lastIndex = navInfo.projectIndexArr[navInfo.projectIndexArr.length-1];
-      projectArray.splice(lastIndex,1);
+      let index = getIndex();
+      displayProjectArr.splice(index,1);
       navInfo.delList();
-      //
+      // to include delete task of the same list 
       projectList.layout();
     }
 
   return {
-    list: projectArray,
+    list: displayProjectArr,
     add,
     update,
     del
