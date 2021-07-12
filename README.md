@@ -9,11 +9,12 @@ Uses class to create new objects for new input.git
 Data is stored in local storage for inter-session usage
 
 
-Revealing modular pattern. Single responsibility principle
+Revealing modular pattern
+Single responsibility principle
 less coupling
 IIFE 
 
-CSS:
+CSS3:
 grid and flexbox
 
 Dependencies in webpack: 
@@ -21,6 +22,7 @@ webpack
 webpack-cli
 css loader
 style-loader
+date-fns
 
 Devtool:
 inline-source mapgit

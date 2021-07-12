@@ -1,95 +1,31 @@
 import './style.css';
-import { taskInput, taskList } from './taskLayout.js';
-import { projectInput, editProject } from './projectLayout';
-import { displayAddTaskBtn, deleteElementById } from './DOMfunction';
-import { taskFunc } from './function';
+import { createTaskList, deleteElementById, displayAddTaskBtn} from './taskLayout';
+import {  createEditProjectInput } from './projectLayout';
+import { task, selection } from './function';
+import  {storage}  from './storage';
+import { insertProjectInputBar, insertTaskInputBar } from './todoListLogic';
 
-
-const getTitle = (text) => {
+const setTitle = (text) => {
     deleteElementById('title');
-    const taskContent = document.querySelector('#task-content');
+    const titleContainer = document.querySelector('#title-container');
     const title = document.createElement('h3');
-    title.id = 'title';
+    title.id='title';
     title.innerHTML = `${text}`;
-    taskContent.prepend(title);
+    titleContainer.appendChild(title);
 }
-
-const navInfo = (() => {
-    var list = ['Home','Today'];
-    var selectedProject = [];
-    var selectedNavItem = [];
-    var navIndex = []; 
-    var projectIndex = [];
-    var lastNavIndex; 
-
-    function updateList(input){
-        list.push(input);
-    }
-
-    function editList(input){
-       list[lastNavIndex] = input;
-    }
-    function delList(){
-        list.splice(lastNavIndex,1);
-    }
-
-    function select(event){
-        let num;
-        if (typeof event == 'object'){
-            num = document.querySelector(`#${event.target.id}`).getAttribute('nav');
-        }
-        else if (typeof event == 'string' ) {
-             let searchIndex = list.indexOf(`${event}`);
-             num = searchIndex;    
-        }
-        navIndex.push(num);
-        lastNavIndex = navIndex[navIndex.length-1];
-        _getCurrentNavItem(lastNavIndex);
-        _getCurrentProject(lastNavIndex);
-        getProjectIndex(lastNavIndex);
-    }
-    function _getCurrentProject(num){
-        if(num > 1){
-        let projectName = list[num];
-        selectedProject.push(projectName);
-        }
-    }
-    function getProjectIndex(num){
-        if(num > 1){ 
-        num=num-2;
-        projectIndex.push(num);
-        }
-    }
-    function _getCurrentNavItem(num){
-        let navItem = list[num];
-        selectedNavItem.push(navItem);
-        getTitle(navItem);
-        taskList.layout();
-    }
-    return {
-        updateList,
-        editList,
-        delList,
-        select,
-        project: selectedProject,
-        nav: selectedNavItem,
-        list: list,
-        projectIndexArr: projectIndex
-    }  
-})();
 
 const loadPage = (() => {  
 
 const defaultDisplay = () => {
-   display.todayTask();
-   navInfo.select('Today');
+    display.todayTask();
 }
 
 const addEventListener = () => {
         document.querySelector('#home').addEventListener('click', display.allTask);
         document.querySelector('#today').addEventListener('click', display.todayTask);
-        document.querySelector('#add-project-btn').addEventListener('click', projectInput.layout);
-        document.querySelector('#add-task-btn').addEventListener('click', taskInput.layout);
+        document.querySelector('#add-project-btn').addEventListener('click', insertProjectInputBar);
+        document.querySelector('#add-task-btn').addEventListener('click', insertTaskInputBar);
+        document.querySelector('#reset').addEventListener('click', storage.clear);
  }
 
 defaultDisplay();
@@ -99,19 +35,32 @@ addEventListener();
 const display = (() => {
 
     function allTask (event) {
-        navInfo.select(event);
+        deleteElementById('project-bar');
+        selection.navItem(0);
+        createTaskList.deletePreviousDOM();
+        createTaskList.createListContainer();
+        task.printAllList();
         displayAddTaskBtn(false);
     }
 
     function todayTask (event) {
-        navInfo.select(event);
+        deleteElementById('project-bar');
         displayAddTaskBtn(true);
+        selection.navItem(1);
+        createTaskList.deletePreviousDOM();
+        createTaskList.createListContainer();
+        task.printList();
     }
 
     function taskByNavItem (event){
-        navInfo.select(event);
-        editProject.addBtn();
         displayAddTaskBtn(true);
+        createEditProjectInput.addBtn();
+        const index = selection.getIndex(event);
+        selection.navItem(index);
+        createEditProjectInput.addBtn();
+        createTaskList.deletePreviousDOM();
+        createTaskList.createListContainer();
+        task.printList();
     }
 
 return{
@@ -121,9 +70,10 @@ return{
 }
 })();
 
+
 window.addEventListener('DOMContentLoaded',loadPage);
 
-export{ display, navInfo, getTitle }
+export{ display, setTitle }
 
 
 

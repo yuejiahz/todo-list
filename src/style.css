@@ -31,6 +31,7 @@ h1{
     text-align: center;
     font-size: 300%;
     line-height: 3rem;
+  
 }
 section#main-container{ 
     grid-area:main-container; 
@@ -57,7 +58,11 @@ section#right-column{
     grid-area:right-column;
     background-color:#f0eded;
 }
-
+h3#title{
+    display: grid;
+    grid-template-columns: 1fr 5rem 2rem;
+    grid-template-areas: ". edit-btn del-btn" ;
+}
 #project-title, #title {
     padding: 1rem 0 1rem 0.3rem;
 }
@@ -94,10 +99,11 @@ div#task-content{
     overflow-x: visible;
 }
 
-button#add-task-btn:hover{
+button#add-task-btn:hover,
+button#reset:hover{
     background-color:#cac5c5;
 }
-button.add-btn{
+button.add-btn, button#reset{
     border-radius: 20px;
     color: rgb(124, 82, 59);
     padding:0.8rem;
@@ -107,7 +113,13 @@ button.add-btn{
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
 }
-
+button#reset{
+    /* border: solid 2px; */
+    width: 5rem;
+    margin-left: 12%;
+    margin-top: 20px;
+    background-color:#dddcdc;
+}
 #task-list{
     display: flex;
 }
@@ -134,8 +146,8 @@ input
     line-height: 2rem;
 }
 
-#task-input{
-    width:50%;
+input#task-input{
+    flex-grow: 1;
 }
 #date{
     width:30%;
@@ -146,7 +158,7 @@ button.task-btn{
 
 button#add-task-input-btn,.add-small-btn{
     background-color: lightgreen;
-    flex-grow: 1;
+    width: 6rem;
 }
 button#cancel-task-input-btn,button.task-delete-btn,.del-btn{
     background-color: lightcoral;   
@@ -188,7 +200,7 @@ li{
     text-decoration: line-through;
 }
 .task-date{
-    width: 5.5rem;
+    width: 7 rem;
     right:5rem;
     padding-left: 0.8rem;
     padding-right: 0.8rem;
@@ -209,13 +221,18 @@ li{
     background-color: rgba(208, 209, 209, 0.57);
     border-radius:5px;
 }
-.edit-project{
-    position: relative;
-    left: 60%;
+
+#project-edit-btn{
+    grid-area: edit-btn;
 }
+#project-del-btn{
+    grid-area: del-btn;
+}
+
 #project-input{
     border:solid 2px;
 }
+
 footer{
     grid-area:footer;
     background-color:#dddcdc;

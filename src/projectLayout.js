@@ -1,9 +1,15 @@
-import { projectFunc } from "./function";
-import { display, navInfo } from "./index";
-import { deleteElementByEvent, deleteElementById } from './DOMfunction';
+import { selection } from "./function";
+import { deleteElementById } from "./taskLayout";
+import { display } from "./index";
+import {
+    addProject,
+    deleteProject,
+    editProject,
+    addEditedProject,
+    cancelEditProject
+} from './todoListLogic';
 
-
-const projectInput = (() => {
+const createProjectInput = (() => {
 
     function _deletePreviousDOM() {
         deleteElementById('project-bar');
@@ -42,8 +48,8 @@ const projectInput = (() => {
 
     function _addEventListener() {
         if (!!document) {
-            document.querySelector('#add-project-input-btn').addEventListener('click', projectFunc.add);
-            document.querySelector('#cancel-project-input-btn').addEventListener('click', projectFunc.del);
+            document.querySelector('#add-project-input-btn').addEventListener('click', addProject);
+            document.querySelector('#cancel-project-input-btn').addEventListener('click', deleteProject);
         }
     }
 
@@ -52,31 +58,22 @@ const projectInput = (() => {
     }
 })();
 
-const projectList = (() => {
+const createProjectList = (() => {
 
     const projectContent = document.querySelector('#project-content');
 
-    function layout() {
-
-        _deletePreviousDOM();
-        for (let i in projectFunc.list) {
-            const project = document.createElement('div');
-
-            project.id = `project-${i}`;
-            project.classList.add('project');
-            project.setAttribute('project', `${i}`);
-            project.setAttribute('name', projectFunc.list[i]);
-
-            let navCode = Number(i) + 2;
-            project.setAttribute('nav',`${navCode}`);
-
-            project.textContent = projectFunc.list[i];
-            projectContent.appendChild(project);
-        }
+    function layout(list) {
+        const project = document.createElement('div');
+        project.id = `project-${list.ID}`;
+        project.classList.add('project');
+        project.setAttribute('name', `${list.name}`);
+        project.setAttribute('nav', `${list.ID}`);
+        project.textContent = `${list.name}`;
+        projectContent.appendChild(project);
         _addEventListener();
     }
 
-    function _deletePreviousDOM() {
+    function deletePreviousDOM() {
         deleteElementById('project-bar');
         const projectList = Array.from(document.querySelectorAll('.project'));
         projectList.forEach((ele) => ele.remove());
@@ -84,25 +81,26 @@ const projectList = (() => {
 
     function _addEventListener() {
         const projects = Array.from(document.querySelectorAll('.project'));
-        projects.forEach((ele) => ele.addEventListener('click',display.taskByNavItem));
+        projects.forEach((ele) => ele.addEventListener('click', display.taskByNavItem));
     }
 
     return {
-        layout
+        layout, deletePreviousDOM
     }
 })();
 
-const editProject = (() => {
+const createEditProjectInput = (() => {
 
     function addBtn() {
         const title = document.querySelector('#title');
+        _deletePreviousDOM('project-edit-btn');
+        _deletePreviousDOM('project-del-btn');
         const edit = document.createElement('button');
         edit.textContent = "edit";
         edit.id = "project-edit-btn";
         edit.classList.add('project-btn');
         edit.classList.add('edit-project');
         title.appendChild(edit);
-
 
         const del = document.createElement('button');
         del.textContent = "Del";
@@ -117,9 +115,9 @@ const editProject = (() => {
     }
 
     function layout() {
-        _deletePreviousDOM();
+        _deletePreviousDOM('project-bar');
 
-        const title = document.querySelector('#title');
+        const titleContainer = document.querySelector('#title-container');
         const projectBar = document.createElement('div');
         const input = document.createElement('input');
         const add = document.createElement('button');
@@ -135,15 +133,14 @@ const editProject = (() => {
         cancel.classList.add('project-btn');
 
         input.setAttribute('type', 'text');
-
-        let lastSelectedProject = navInfo.project[navInfo.project.length-1];
-        input.setAttribute('value', `${lastSelectedProject}`);
+        const selectedProjectName = selection.getCurrentNavName(); 
+        input.setAttribute('value',`${selectedProjectName}`);
 
         add.textContent = "Add";
         cancel.textContent = "X";
 
         projectBar.style.display = "flex";
-        title.appendChild(projectBar);
+        titleContainer.appendChild(projectBar);
         projectBar.appendChild(input);
         projectBar.appendChild(add);
         projectBar.appendChild(cancel);
@@ -151,25 +148,26 @@ const editProject = (() => {
         _addEventListenerToInputBar();
     }
 
-    function _deletePreviousDOM() {
-        deleteElementById('project-bar');
+    function _deletePreviousDOM(id) {
+        deleteElementById(`${id}`);
     }
 
     function _addEventListenerToInputBar() {
-        const add =  document.getElementById('add-project-input-btn');
+        const add = document.getElementById('add-project-input-btn');
         const cancel = document.getElementById('cancel-project-input-btn');
-        add.addEventListener('click', projectFunc.update);
-        cancel.addEventListener('click', deleteElementByEvent);
+        add.addEventListener('click', addEditedProject);
+        cancel.addEventListener('click', cancelEditProject);
     }
 
     function _addEventListenerToBtn() {
-        document.querySelector('#project-edit-btn').addEventListener('click', layout);
-        document.querySelector('#project-del-btn').addEventListener('click', projectFunc.del);
+        document.querySelector('#project-edit-btn').addEventListener('click', editProject);
+        document.querySelector('#project-del-btn').addEventListener('click', deleteProject);
     }
 
     return {
-         addBtn,
+        addBtn, layout
     }
 })();
 
-export {  projectInput, projectList, editProject }
+
+export { createProjectInput, createProjectList, createEditProjectInput }
