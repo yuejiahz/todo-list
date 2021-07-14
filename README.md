@@ -12,9 +12,12 @@ Feature:
 - Check and uncheck task 
 - Tasks without date input will register today's date automatically,
 - local storage for inter-session usage
-- cloud storage using Firebase SDK Auth
+- Firebase SDKs for Cloud Storage
+- Cloud firestore
+- reset button to clear local storage 
+- Firebase UI Auth
 
-Javascript design pattern used:
+Javascript design pattern/concepts applied:
 - Revealing modular pattern
 - Single responsibility principle
 - less coupling
@@ -24,7 +27,7 @@ CSS3:
 - grid
 - flexbox
 
-Dependencies in webpack: 
+Used dependencies in webpack: 
 - webpack
 - webpack-cli
 - css loader

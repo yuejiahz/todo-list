@@ -1,13 +1,8 @@
 import {
-    createTaskInput,
-    createTaskList,
-    deleteElementByEvent,
-    createEditTaskInput,
-    displayAddTaskBtn
+    createTaskInput, createTaskList, deleteElementByEvent, createEditTaskInput, displayAddTaskBtn
 } from './taskLayout';
 import { task, project, selection, navArray } from './function';
-import { createProjectInput, createProjectList, createEditProjectInput } from './projectLayout';
-import { setTitle } from './index';
+import { createProjectInput, createEditProjectInput } from './projectLayout';
 import { storage } from "./storage";
 
 function insertTaskInputBar() {
@@ -53,11 +48,11 @@ function checkboxToggle() {
     const index = task.getIndex(ID);
     if (this.checked) {
         taskText.classList.add('strike');
-        task.getTask().status = 'checked';
+        task.get(index).status = 'checked';
     }
     else {
         taskText.classList.remove('strike');
-        task.getTask().status = 'unchecked';
+        task.get(index).status = 'unchecked';
     }
     storage.saveTaskList();
 }
@@ -72,6 +67,7 @@ function addProject() {
     project.printList();
     storage.saveProjectList();
     storage.saveNavList();
+    createEditProjectInput.addBtn();
     selection.navItem(navArray.length - 1);
 }
 function deleteProject() {
@@ -81,12 +77,9 @@ function deleteProject() {
     storage.saveProjectList();
     storage.saveTaskList();
 
-    //set empty title after last project is deleted
-    if (selection.nav.index == 2 && navArray.length == 2) {
-        setTitle('');
-    } else {
-        //select next project's list after delete a project
-        selection.navItem(selection.nav.index);
+    //select previous project's list 
+  if( selection.nav.index <= navArray.length) {
+        selection.navItem(selection.nav.index-1);
     }
 }
 function editProject() {

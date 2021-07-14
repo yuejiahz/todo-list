@@ -5,25 +5,25 @@ import { format } from "date-fns";
 import { storage } from "./storage";
 
 
-var taskArray = storage.getTaskList() || [];
-// [{ text: 'clean room', date: '12 Sept 2019', listName: 'Today', ID: 578598, listID: 1, status: 'unchecked' },
-// { text: 'book hotel', date: '12 Mar 2021', listName: 'plan vacation', ID: 927494, listID: 274621, status: 'unchecked' },
-// { text: 'decide travel date', date: '12 Mar 2021', listName: 'plan vacation', ID: 927234, listID: 274621, status: 'checked' },
-// { text: 'practice leetcode', date: '2 Apr 2020', listName: 'Today', ID: 385734, listID: 1, status: 'checked' },
-// { text: 'create weather app', date: '6 Jul 2021', listName: 'personal project', ID: 927234, listID: 246916, status: 'checked' },
-// { text: 'buy cat food', date: '8 May 2021', listName: 'errands', ID: 245494, listID: 223636, status: 'unchecked' },
-// { text: 'pay rent', date: '2 May 2021', listName: 'errands', ID: 243224, listID: 223636, status: 'unchecked' }];
+var taskArray = storage.getTaskList() || //[];
+[{ text: 'clean room', date: '12 Sept 2019', listName: 'Today', ID: 578598, listID: 1, status: 'unchecked' },
+{ text: 'book hotel', date: '12 Mar 2021', listName: 'plan vacation', ID: 927494, listID: 274621, status: 'unchecked' },
+{ text: 'decide travel date', date: '12 Mar 2021', listName: 'plan vacation', ID: 927234, listID: 274621, status: 'checked' },
+{ text: 'practice leetcode', date: '2 Apr 2020', listName: 'Today', ID: 385734, listID: 1, status: 'checked' },
+{ text: 'create weather app', date: '6 Jul 2021', listName: 'personal project', ID: 927234, listID: 246916, status: 'checked' },
+{ text: 'buy cat food', date: '8 May 2021', listName: 'errands', ID: 245494, listID: 223636, status: 'unchecked' },
+{ text: 'pay rent', date: '2 May 2021', listName: 'errands', ID: 243224, listID: 223636, status: 'unchecked' }];
 
-var projectArray = storage.getProjectList() || [];
-                                                // [{name:'plan vacation', ID: 274621}, 
-                                                // {name:'personal project', ID:246916},
-                                                // {name:'errands', ID: 223636}];
-var navArray = storage.getNavList() || [];
-                    // [{ name: 'Home', ID:0 },
-                    //  { name: 'Today', ID: 1 },
-                    //  {name:'plan vacation', ID: 274621}, 
-                    //  {name:'personal project', ID: 246916},
-                    //  {name:'errands', ID: 223636}];
+var projectArray = storage.getProjectList() || //[];
+                                                [{name:'plan vacation', ID: 274621}, 
+                                                {name:'personal project', ID:246916},
+                                                {name:'errands', ID: 223636}];
+var navArray = storage.getNavList() || //[];
+                    [{ name: 'Home', ID:0 },
+                     { name: 'Today', ID: 1 },
+                     {name:'plan vacation', ID: 274621}, 
+                     {name:'personal project', ID: 246916},
+                     {name:'errands', ID: 223636}];
 
 const selection = (() => {
   let task = { ID: '', index: '' };
@@ -112,8 +112,8 @@ const taskFactory = () => {
   }
 
   const set = (index) => {
-    const text = document.getElementById('task-input').value;
-    const date = _getDate();
+  const text = document.getElementById('task-input').value;
+  const date = _getDate();
     get(index).text = text;
     get(index).date = date;
   }
@@ -146,8 +146,6 @@ const taskFactory = () => {
       array.forEach((task) => {
         createTaskList.createTask(task);
       });  
-  
-
   }
 
   return {
@@ -159,6 +157,7 @@ const taskFactory = () => {
 const task = taskFactory();
 
 const projectFactory = () => {
+
   const factoryFunc = (name, ID) => {
     return { name, ID }
   }

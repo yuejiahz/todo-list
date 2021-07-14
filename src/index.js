@@ -1,9 +1,16 @@
 import './style.css';
-import { createTaskList, deleteElementById, displayAddTaskBtn} from './taskLayout';
-import {  createEditProjectInput, createProjectList } from './projectLayout';
-import { task, selection, project,taskArray, projectArray, navArray } from './function';
+import {  deleteElementById, displayAddTaskBtn} from './taskLayout';
+import {  createEditProjectInput } from './projectLayout';
+import { task, selection, project } from './function';
 import  { storage}  from './storage';
 import { insertProjectInputBar, insertTaskInputBar } from './todoListLogic';
+
+db.collection('task').get().then((snapshot)=>{
+    snapshot.docs.forEach(element => {
+        console.log(element.data());
+    });
+})
+console.log('koko');
 
 const setTitle = (text) => {
     deleteElementById('title');
