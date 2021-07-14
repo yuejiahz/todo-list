@@ -1,16 +1,16 @@
 import './style.css';
 import { createTaskList, deleteElementById, displayAddTaskBtn} from './taskLayout';
-import {  createEditProjectInput } from './projectLayout';
-import { task, selection } from './function';
-import  {storage}  from './storage';
+import {  createEditProjectInput, createProjectList } from './projectLayout';
+import { task, selection, project,taskArray, projectArray, navArray } from './function';
+import  { storage}  from './storage';
 import { insertProjectInputBar, insertTaskInputBar } from './todoListLogic';
 
 const setTitle = (text) => {
     deleteElementById('title');
     const titleContainer = document.querySelector('#title-container');
     const title = document.createElement('h3');
-    title.id='title';
-    title.innerHTML = `${text}`;
+        title.id='title';
+        title.innerHTML = `${text}`;
     titleContainer.appendChild(title);
 }
 
@@ -34,33 +34,28 @@ addEventListener();
 
 const display = (() => {
 
-    function allTask (event) {
+    function allTask () {
         deleteElementById('project-bar');
         selection.navItem(0);
-        createTaskList.deletePreviousDOM();
-        createTaskList.createListContainer();
-        task.printAllList();
+        task.printList();
         displayAddTaskBtn(false);
     }
 
-    function todayTask (event) {
+    function todayTask () {
         deleteElementById('project-bar');
-        displayAddTaskBtn(true);
         selection.navItem(1);
-        createTaskList.deletePreviousDOM();
-        createTaskList.createListContainer();
         task.printList();
+        project.printList();
+        displayAddTaskBtn(true);
     }
 
     function taskByNavItem (event){
-        displayAddTaskBtn(true);
         createEditProjectInput.addBtn();
-        const index = selection.getIndex(event);
+        const index = selection.setIndex(event)
         selection.navItem(index);
         createEditProjectInput.addBtn();
-        createTaskList.deletePreviousDOM();
-        createTaskList.createListContainer();
         task.printList();
+        displayAddTaskBtn(true);
     }
 
 return{
@@ -73,7 +68,7 @@ return{
 
 window.addEventListener('DOMContentLoaded',loadPage);
 
-export{ display, setTitle }
+export{ display, setTitle, loadPage }
 
 
 

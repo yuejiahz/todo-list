@@ -1,13 +1,14 @@
 import {
     createTaskInput,
-    createTaskList, 
+    createTaskList,
     deleteElementByEvent,
     createEditTaskInput,
     displayAddTaskBtn
 } from './taskLayout';
-import { task, project, selection, taskArray,  } from './function';
+import { task, project, selection, navArray } from './function';
 import { createProjectInput, createProjectList, createEditProjectInput } from './projectLayout';
 import { setTitle } from './index';
+import { storage } from "./storage";
 
 function insertTaskInputBar() {
     createTaskInput.layout();
@@ -17,20 +18,22 @@ function addTask() {
     task.add();
     task.printList();
     displayAddTaskBtn(true);
+    storage.saveTaskList();
 }
 
 function deleteTask(event) {
-    const ID = task.getTaskIDFromEvent(event);
-    const index = task.getArrayIndexFromTaskID(ID);
-    task.clear(index);
+    const ID = task.getID(event);
+    task.clear(task.getIndex(ID));
+    storage.saveTaskList();
     deleteElementByEvent(event);
+    
 }
 
 function editTask(event) {
-    const ID = task.getTaskIDFromEvent(event);
-    const index = task.getArrayIndexFromTaskID(ID);
+    const ID = task.getID(event);
     createEditTaskInput.layout(ID);
-    selection.task.index = index;
+    selection.task.index = task.getIndex(ID);
+    storage.saveTaskList();
 }
 
 function cancelEditTask(event) {
@@ -40,55 +43,63 @@ function cancelEditTask(event) {
 function addEditedTask() {
     task.set(selection.task.index, selection.project.ID);
     task.printList();
+    storage.saveTaskList();
+
 }
 
 function checkboxToggle() {
-    const ID= this.getAttribute('data');
+    const ID = this.getAttribute('data');
     const taskText = document.querySelector(`#task-${ID}`).childNodes[1];
-    const index = task.getArrayIndexFromTaskID(ID);
+    const index = task.getIndex(ID);
     if (this.checked) {
         taskText.classList.add('strike');
-        taskArray[index].status = 'checked';
+        task.getTask().status = 'checked';
     }
     else {
         taskText.classList.remove('strike');
-        taskArray[index].status = 'unchecked';
+        task.getTask().status = 'unchecked';
     }
+    storage.saveTaskList();
 }
 
 function insertProjectInputBar() {
     createProjectInput.layout();
 }
-function addProject(){
-    createTaskList.deletePreviousDOM();
+function addProject() {
+    createTaskList.deletePreviousDOM()
     createTaskList.createListContainer();
-    project.add();
-    createProjectList.deletePreviousDOM();
+    project.add()
     project.printList();
+    storage.saveProjectList();
+    storage.saveNavList();
+    selection.navItem(navArray.length - 1);
 }
-function deleteProject(){
-    project.clear();
-    createProjectList.deletePreviousDOM();
+function deleteProject() {
+    project.clear()
     project.printList();
-    //set empty title after last project deleted
-    if(selection.nav.index == 2 && selection.navArray.length == 2){
+    storage.saveNavList();
+    storage.saveProjectList();
+    storage.saveTaskList();
+
+    //set empty title after last project is deleted
+    if (selection.nav.index == 2 && navArray.length == 2) {
         setTitle('');
-    } else{
+    } else {
         //select next project's list after delete a project
         selection.navItem(selection.nav.index);
     }
-
 }
-function editProject(){
+function editProject() {
     createEditProjectInput.layout();
 }
-function addEditedProject(){
-    project.set();
-    selection.navItem(selection.nav.index);
-    createProjectList.deletePreviousDOM();
+function addEditedProject() {
+    project.set()
     project.printList();
+    selection.navItem(selection.nav.index);
+    storage.saveProjectList();
+    storage.saveTaskList();
 }
-function cancelEditProject(event){
+function cancelEditProject(event) {
     deleteElementByEvent(event);
 }
 

@@ -133,8 +133,8 @@ const createEditProjectInput = (() => {
         cancel.classList.add('project-btn');
 
         input.setAttribute('type', 'text');
-        const selectedProjectName = selection.getCurrentNavName(); 
-        input.setAttribute('value',`${selectedProjectName}`);
+        const selectedProjectName = selection.getCurrentNav().name;
+        input.setAttribute('value', `${selectedProjectName}`);
 
         add.textContent = "Add";
         cancel.textContent = "X";

@@ -1,5 +1,4 @@
-import {  addTask ,deleteTask, editTask, cancelEditTask, addEditedTask, checkboxToggle } from './todoListLogic';
-import { format } from "date-fns";
+import { addTask, deleteTask, editTask, cancelEditTask, addEditedTask, checkboxToggle } from './todoListLogic';
 
 const taskContent = document.querySelector('#task-content');
 
@@ -14,7 +13,7 @@ const createTaskInput = (() => {
 
         const taskBar = document.createElement('div');
         const input = document.createElement('input');
-        const date = document.createElement('input');    
+        const date = document.createElement('input');
         const add = document.createElement('button');
         const cancel = document.createElement('button');
 
@@ -38,7 +37,7 @@ const createTaskInput = (() => {
         taskBar.appendChild(add);
         taskBar.appendChild(cancel);
         taskContent.append(taskBar);
-        
+
         _addEventListener();
         displayAddTaskBtn(false);
     }
@@ -105,8 +104,8 @@ const createTaskList = (() => {
         del.textContent = "X";
 
         // add checked effects to task 
-        if(list.status === 'checked' ) {
-            checkbox.checked= true;
+        if (list.status === 'checked') {
+            checkbox.checked = true;
             text.classList.add('strike');
         }
 
@@ -200,7 +199,7 @@ const createEditTaskInput = (() => {
         //taskbar date input shows date text
         taskBar.childNodes[1].value = d + '-' + m + '-' + y;
     }
-    function displayAllHiddenTask(){
+    function displayAllHiddenTask() {
         const selectTaskList = document.querySelector('#task-list');
         selectTaskList.childNodes.forEach((list) => list.style.display = "flex");
     }
@@ -219,23 +218,23 @@ const createEditTaskInput = (() => {
 
 })();
 
-function deleteElementById(Id){
+function deleteElementById(Id) {
     if (typeof Id === 'string') {
         const elementID = document.getElementById(`${Id}`);
-        if(elementID){
+        if (elementID) {
             elementID.remove();
         }
     }
 }
 
-function deleteElementByEvent(event){
+function deleteElementByEvent(event) {
     if (typeof event === 'object') {
         const elementID = document.getElementById(`${event.target.id}`).parentNode;
-        if(elementID){
+        if (elementID) {
             elementID.remove();
         }
     }
-    if(event.target.id === 'cancel-task-input-btn'){
+    if (event.target.id === 'cancel-task-input-btn') {
         displayAddTaskBtn(true);
     }
 }
@@ -250,5 +249,7 @@ function displayAddTaskBtn(statement) {
     }
 }
 
-export {  createTaskInput,  createTaskList, createEditTaskInput, displayAddTaskBtn, 
-            deleteElementByEvent, deleteElementById }
+export {
+    createTaskInput, createTaskList, createEditTaskInput, displayAddTaskBtn,
+    deleteElementByEvent, deleteElementById
+}
