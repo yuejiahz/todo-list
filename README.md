@@ -3,7 +3,7 @@ A todo list website to manage your daily task.
 
 Home: to view all tasks in one list (Home).
 Today: Quick access to create task list.
-Projects: Create separate lists for for different tasks.
+Projects: Create separate lists for different tasks.
 
 Click on tabs to navigate different lists.
 To edit project's name, click on the respective project's name on sidebar
