@@ -10,29 +10,31 @@
 
 <body>
     <main>
-    <section id="header">
-        <h1>Todo List</h1>
-    </section>
-    <section id="main-container">
-        <section id='nav-bar'>
-            <div id='home' class='nav-item'>Home</div>
-            <div id='today' class='nav-item'>Today </div>
-            <div id='projects'>
-                <h3 id='project-title' class="h3-title">Projects</h3>
-                <div id='project-content'> </div>
+        <section id="header">
+            <h1>Todo List</h1>
+        </section>
+        <section id="main-container">
+            <section id='nav-bar'>
+                <div id='home' nav="0" class='nav-item'>Home</div>
+                <div id='today' nav="1" class='nav-item'>Today </div>
+                <div id='projects-container'>
+                    <h3 id='project-title' class="h3-title">Projects</h3>
+                    <div id='project-content'> </div>
                     <button id='add-project-btn' class='nav-item add-btn'> + Add Project</button>
-            </div>
+                </div>
+            </section>
+            <section id='task-container'>
+                <div id='title-container'></div>
+                <div id='task-content'></div>
+                <button id='add-task-btn' class='add-btn'>+ Add Task</button>
+            </section>
+            <section id="right-column">
+                <button id='reset'> Reset </button>
+            </section>
         </section>
-
-        <section id='task-container'>
-            <div id='task-content'></div>
-            <button id='add-task-btn' class='add-btn'>+ Add Task</button>
-        </section>
-        <section id="right-column"> </section>
-</section>
     </main>
-
     <script src="main.js"></script>
+
 </body>
 <footer> Created by Moonji </footer>
 

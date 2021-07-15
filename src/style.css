@@ -31,12 +31,13 @@ h1{
     text-align: center;
     font-size: 300%;
     line-height: 3rem;
+  
 }
 section#main-container{ 
     grid-area:main-container; 
     display: grid;
-    /* grid-template-columns: 15rem 50rem 1fr; */
-    grid-template-columns: 5rem 50rem 1fr;
+    /* grid-template-columns: 12rem 50rem 1fr; */
+    grid-template-columns: 10rem 50rem 1fr;
     grid-template-areas:
     "nav-bar task-container right-column";
     overflow-y: auto;
@@ -57,9 +58,16 @@ section#right-column{
     grid-area:right-column;
     background-color:#f0eded;
 }
-
+h3#title{
+    display: grid;
+    grid-template-columns: 1fr 5rem 2rem;
+    grid-template-areas: ". edit-btn del-btn" ;
+}
 #project-title, #title {
     padding: 1rem 0 1rem 0.3rem;
+}
+#projects-container{
+    padding-left: 10%;
 }
 .nav-item{
 justify-self: stretch;
@@ -68,17 +76,15 @@ justify-self: stretch;
     background-color:#cac5c5;
 }
 .nav-item,#add-task-btn{
-    border: none;
     background-color:#dddcdc;
+    margin-left: 5%;
 }
+
 #home, #today{
     margin:0.3rem 0 0.3rem 0;
     padding:0.8rem 0 0.8rem 0.5rem;
 }
-button#add-project{
-    width:7.8rem;
-    margin-left:0.5rem;
-}
+
 #projects-title, div#projects{
     background-color: transparent;
 }
@@ -88,30 +94,33 @@ div#project-content{
 }
 
 div#task-content{
-    background-color: wheat;
+    background-color: rgba(255, 247, 231, 0.405);
     padding: 0 1.3rem;
     overflow-x: visible;
 }
 
-button#add-task-btn{
-    text-align: center;
-}
-button#add-task-btn:hover{
+button#add-task-btn:hover,
+button#reset:hover{
     background-color:#cac5c5;
 }
-button.add-btn{
+button.add-btn, button#reset{
     border-radius: 20px;
     color: rgb(124, 82, 59);
-    margin:0.2rem;
     padding:0.8rem;
-    width:100%;
+    margin: 0.3rem 0;
+    width:90%;
     border: none;
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
 }
-
+button#reset{
+    /* border: solid 2px; */
+    width: 5rem;
+    margin-left: 12%;
+    margin-top: 20px;
+    background-color:#dddcdc;
+}
 #task-list{
-    min-height:1.5rem;
     display: flex;
 }
 #task-input-bar{
@@ -127,15 +136,18 @@ button.add-btn{
 #dueDate,
 button#add-task-input-btn,
 button#cancel-task-input-btn,
-button.task-btn
+button.task-btn,
+.project-btn, 
+input
 {
     border-radius: 5px;
     border: none;
     margin:0 0.1rem 0 0.1rem;
+    line-height: 2rem;
 }
 
-#task-input{
-    width:50%;
+input#task-input{
+    flex-grow: 1;
 }
 #date{
     width:30%;
@@ -144,20 +156,19 @@ button.task-btn{
     font-weight: bold;
 }
 
-button#add-task-input-btn{
+button#add-task-input-btn,.add-small-btn{
     background-color: lightgreen;
-    width: 20%;
-
+    width: 6rem;
 }
-button#cancel-task-input-btn,button.task-delete-btn{
-    background-color: lightcoral;
-    width: 5%;
+button#cancel-task-input-btn,button.task-delete-btn,.del-btn{
+    background-color: lightcoral;   
+    width: 2rem;
 }
 button#cancel-task-input-btn:hover,
-.task-delete-btn:hover{
+.task-delete-btn:hover, .del-btn:hover{
     background-color: rgb(194, 102, 102);
 }
-button#add-task-input-btn:hover{
+button#add-task-input-btn:hover,.add-small-btn:hover{
     background-color: rgb(105, 182, 105);
 }
 button.task-edit-btn:hover{
@@ -166,7 +177,7 @@ background-color: rgb(214, 218, 210);
 ul{
     display: flex;
     flex-direction: column;
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.44);
 }
 li{
     display: flex;
@@ -175,17 +186,21 @@ li{
     width: 95%;
 }
 .task-checkbox{
+    left:0;
     size:3rem;
     padding:1rem;
-    margin:auto;
+    margin: auto;
 }
 .task-text{
     flex-grow: 1;
     padding-left: 0.8rem;
     padding-right: 0.8rem;
 }
+.strike{
+    text-decoration: line-through;
+}
 .task-date{
-    width: 5.5rem;
+    width: 7 rem;
     right:5rem;
     padding-left: 0.8rem;
     padding-right: 0.8rem;
@@ -195,6 +210,30 @@ li{
     position: relative;
     right:0;
 }
+#project-input{
+    width: 60%;
+}
+.project{
+    line-height: 2rem;
+    padding: 0.2rem;
+}
+.project:hover{
+    background-color: rgba(208, 209, 209, 0.57);
+    border-radius:5px;
+}
+
+#project-edit-btn{
+    grid-area: edit-btn;
+}
+#project-del-btn{
+    grid-area: del-btn;
+}
+
+#project-input{
+    border:solid 2px;
+    flex-grow: 1;
+}
+
 footer{
     grid-area:footer;
     background-color:#dddcdc;
