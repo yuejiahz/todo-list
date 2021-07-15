@@ -21,7 +21,6 @@ function deleteTask(event) {
     task.clear(task.getIndex(ID));
     storage.saveTaskList();
     deleteElementByEvent(event);
-    
 }
 
 function editTask(event) {

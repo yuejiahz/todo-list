@@ -22,7 +22,6 @@ const storage = (() => {
       localStorage.setItem('nav', JSON.stringify(navArray));
    }
 
-
    function getTaskList() {
       return JSON.parse(localStorage.getItem('task'));
    }

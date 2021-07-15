@@ -4,20 +4,20 @@ import { setTitle } from "./index";
 import { format } from "date-fns";
 import { storage } from "./storage";
 
-var taskArray = storage.getTaskList() || //[];
+var taskArray = //storage.getTaskList() || //[];
 [{ text: 'clean room', date: '12/09/2019', listName: 'Today', ID: 578598, listID: 1, status: 'unchecked' },
 { text: 'book hotel', date: '12/02/2021', listName: 'plan vacation', ID: 927494, listID: 274621, status: 'unchecked' },
 { text: 'decide travel date', date: '12/06/2021', listName: 'plan vacation', ID: 927234, listID: 274621, status: 'checked' },
-{ text: 'practice leetcode', date: '2/01/2020', listName: 'Today', ID: 385734, listID: 1, status: 'checked' },
-{ text: 'create weather app', date: '6/11/2021', listName: 'personal project', ID: 927234, listID: 246916, status: 'checked' },
-{ text: 'buy cat food', date: '8/02/2021', listName: 'errands', ID: 245494, listID: 223636, status: 'unchecked' },
-{ text: 'pay rent', date: '2/08/2021', listName: 'errands', ID: 243224, listID: 223636, status: 'unchecked' }];
+{ text: 'practice leetcode', date: '02/01/2020', listName: 'Today', ID: 385734, listID: 1, status: 'checked' },
+{ text: 'create weather app', date: '06/11/2021', listName: 'personal project', ID: 927234, listID: 246916, status: 'checked' },
+{ text: 'buy cat food', date: '08/02/2021', listName: 'errands', ID: 245494, listID: 223636, status: 'unchecked' },
+{ text: 'pay rent', date: '02/08/2021', listName: 'errands', ID: 243224, listID: 223636, status: 'unchecked' }];
 
-let projectArray = storage.getProjectList() || //[];
+let projectArray = //storage.getProjectList() || //[];
                                                 [{name:'plan vacation', ID: 274621}, 
                                                 {name:'personal project', ID:246916},
                                                 {name:'errands', ID: 223636}];
-let navArray = storage.getNavList() || //[{ name: 'Home', ID:0 },{ name: 'Today', ID: 1 },];
+let navArray = //storage.getNavList() || //[{ name: 'Home', ID:0 },{ name: 'Today', ID: 1 },];
                     [{ name: 'Home', ID:0 },
                      { name: 'Today', ID: 1 },
                      {name:'plan vacation', ID: 274621}, 
@@ -92,7 +92,6 @@ const taskFactory = (() => {
     } else {
       date = format(new Date(date), 'MM/dd/yyyy');
     }
-    console.log(date);
     return date;
   }
 
@@ -127,32 +126,28 @@ const taskFactory = (() => {
     for (let i = 0; i < taskArray.length; i++) {
       if (get(i).ID == inputID) {
         selection.task.index = i;
-        break;
       }
     }
     return selection.task.index;
   }
 
-  const printList = () => {
+  const printList = (() => {
     createTaskList.deletePreviousDOM();
     createTaskList.createListContainer();
 
     if(selection.nav.index == 0){
-      let array = taskArray;
+      var array = taskArray;
     }
     else {
-      let array =  taskArray.filter((task) =>  task.listID == selection.nav.ID)
+      var array =  taskArray.filter((task) =>  task.listID == selection.nav.ID)
     } 
-    let a = [1,6,3,8,0,137,4];
     const sortedArr = array.sort((a,b) =>  new Date(a.date )> new Date(b.date)? 1 : -1 );
-      array.forEach((task) => {
-        createTaskList.createTask(task);
-      });  
-  }
+                      array.forEach((task) => createTaskList.createTask(task));
+                     
+  })
 
   return {
-    add, set, clear, get, getID,
-    getIndex, printList
+    add, set, clear, get, getID, getIndex, printList
   }
 });
 

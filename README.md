@@ -22,7 +22,8 @@ Then click on edit/delete button at the title.
 - Tasks without date input will register today's date automatically,
 - local storage for inter-session usage
 - sort task by date automatically
-- reset button to clear local storage 
+- reset button to clear local storage
+- specific ID for each task and project to avoid bug  
 
 ### Javascript design pattern/concepts applied:
 - Revealing modular pattern

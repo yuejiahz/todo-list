@@ -1,5 +1,6 @@
 import { addTask, deleteTask, editTask, cancelEditTask, addEditedTask, checkboxToggle } from './todoListLogic';
 import { format } from 'date-fns';
+import { task as taskFunc } from './function';
 
 const taskContent = document.querySelector('#task-content');
 
@@ -164,7 +165,7 @@ const createEditTaskInput = (() => {
 
         taskBar.id = "task-input-bar";
         input.id = "task-input";
-        date.id = "dueDate";
+        date.id = "date";
         add.id = "add-task-input-btn";
         cancel.id = "cancel-task-input-btn";
         add.classList.add("task-btn");
@@ -192,16 +193,18 @@ const createEditTaskInput = (() => {
         displayAddTaskBtn(false);
     }
 
-    function _previewTaskInfoInInputBar(taskNum) {
-        const task = document.querySelector(`#task-${taskNum}`);
+    function _previewTaskInfoInInputBar(taskID) {
+        const task = document.querySelector(`#task-${taskID}`);
         const taskBar = document.querySelector("#task-input-bar");
+        const index = taskFunc.getIndex(taskID);
         //taskbar text input shows task text
         taskBar.childNodes[0].value = task.childNodes[1].textContent;
-        const y = task.childNodes[2].textContent.slice(0, 2);
-        const m = task.childNodes[2].textContent.slice(3, 5);
-        const d = task.childNodes[2].textContent.slice(6, 10);
+
         //taskbar date input shows date text
-        taskBar.childNodes[1].value = d + '-' + m + '-' + y;
+         const m = taskFunc.get(index).date.slice(0, 2);
+         const d = taskFunc.get(index).date.slice(3, 5);
+         const y = taskFunc.get(index).date.slice(6, 10);
+        taskBar.childNodes[1].value = y + '-'+ m +'-' + d;
     }
     function displayAllHiddenTask() {
         const selectTaskList = document.querySelector('#task-list');
