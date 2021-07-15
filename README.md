@@ -19,6 +19,7 @@ Feature:
 
 Javascript design pattern/concepts applied:
 - Revealing modular pattern
+- closure
 - Single responsibility principle
 - less coupling
 - IIFE 

@@ -13,11 +13,11 @@ var taskArray = storage.getTaskList() || //[];
 { text: 'buy cat food', date: '8/02/2021', listName: 'errands', ID: 245494, listID: 223636, status: 'unchecked' },
 { text: 'pay rent', date: '2/08/2021', listName: 'errands', ID: 243224, listID: 223636, status: 'unchecked' }];
 
-var projectArray = storage.getProjectList() || //[];
+let projectArray = storage.getProjectList() || //[];
                                                 [{name:'plan vacation', ID: 274621}, 
                                                 {name:'personal project', ID:246916},
                                                 {name:'errands', ID: 223636}];
-var navArray = storage.getNavList() || //[{ name: 'Home', ID:0 },{ name: 'Today', ID: 1 },];
+let navArray = storage.getNavList() || //[{ name: 'Home', ID:0 },{ name: 'Today', ID: 1 },];
                     [{ name: 'Home', ID:0 },
                      { name: 'Today', ID: 1 },
                      {name:'plan vacation', ID: 274621}, 
@@ -79,14 +79,14 @@ const selection = (() => {
   }
 })();
 
-const taskFactory = () => {
+const taskFactory = (() => {
 
   const factoryFunc = (text, date, listName, ID, listID, status) => {
     return { text, date, listName, ID, listID, status }
   }
 
   function _getDate() {
-    var date = document.getElementById('date').value;
+    let date = document.getElementById('date').value;
     if (!date) {
       date = format(new Date(), 'MM/dd/yyyy');
     } else {
@@ -138,13 +138,13 @@ const taskFactory = () => {
     createTaskList.createListContainer();
 
     if(selection.nav.index == 0){
-      var array = taskArray;
+      let array = taskArray;
     }
     else {
-      var array =  taskArray.filter((task) =>  task.listID == selection.nav.ID)
+      let array =  taskArray.filter((task) =>  task.listID == selection.nav.ID)
     } 
     let a = [1,6,3,8,0,137,4];
-    const sortedArr= array.sort((a,b) =>  new Date(a.date )> new Date(b.date)? 1 : -1 );
+    const sortedArr = array.sort((a,b) =>  new Date(a.date )> new Date(b.date)? 1 : -1 );
       array.forEach((task) => {
         createTaskList.createTask(task);
       });  
@@ -154,11 +154,11 @@ const taskFactory = () => {
     add, set, clear, get, getID,
     getIndex, printList
   }
-};
+});
 
 const task = taskFactory();
 
-const projectFactory = () => {
+const projectFactory = (() => {
 
   const factoryFunc = (name, ID) => {
     return { name, ID }
@@ -201,7 +201,7 @@ const projectFactory = () => {
   return {
     add, set, clear, printList
   }
-}
+})
 
 const project = projectFactory();
 
