@@ -18,7 +18,7 @@ var projectArray = storage.getProjectList() || //[];
                                                 [{name:'plan vacation', ID: 274621}, 
                                                 {name:'personal project', ID:246916},
                                                 {name:'errands', ID: 223636}];
-var navArray = storage.getNavList() || //[];
+var navArray = storage.getNavList() || //[{ name: 'Home', ID:0 },{ name: 'Today', ID: 1 },];
                     [{ name: 'Home', ID:0 },
                      { name: 'Today', ID: 1 },
                      {name:'plan vacation', ID: 274621}, 
@@ -87,7 +87,7 @@ const taskFactory = () => {
   }
 
   function _getDate() {
-    var date = document.getElementById('dueDate').value;
+    var date = document.getElementById('date').value;
     if (!date) {
       date = format(new Date(), 'dd/MM/yyyy');
     } else {

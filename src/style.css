@@ -231,6 +231,7 @@ li{
 
 #project-input{
     border:solid 2px;
+    flex-grow: 1;
 }
 
 footer{

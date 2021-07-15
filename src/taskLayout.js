@@ -19,18 +19,22 @@ const createTaskInput = (() => {
 
         input.setAttribute('type', 'text');
         input.setAttribute('value', 'default task');
-        date.setAttribute('type', 'date');
+        date.setAttribute('type', 'text');
 
         taskBar.id = "task-input-bar";
         input.id = "task-input";
-        date.id = "dueDate";
+        date.id = "date";
         add.id = "add-task-input-btn";
         cancel.id = "cancel-task-input-btn";
         add.classList.add("task-btn");
         cancel.classList.add("task-btn");
 
+        date.placeholder="MM/DD/YYYY";
         add.textContent = "Add";
         cancel.textContent = "X";
+
+        date.setAttribute('onfocus',"(this.type='date')");
+        date.setAttribute('onblur',"(this.type='text')");
 
         taskBar.appendChild(input);
         taskBar.appendChild(date);
@@ -84,7 +88,6 @@ const createTaskList = (() => {
 
         task.setAttribute('data', `${list.ID}`);
         checkbox.setAttribute('data', `${list.ID}`);
-
         edit.setAttribute('data', `${list.ID}`);
         del.setAttribute('data', `${list.ID}`);
 

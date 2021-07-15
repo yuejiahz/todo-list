@@ -95,6 +95,8 @@ const createEditProjectInput = (() => {
         const title = document.querySelector('#title');
         _deletePreviousDOM('project-edit-btn');
         _deletePreviousDOM('project-del-btn');
+        _deletePreviousDOM('project-bar');
+
         const edit = document.createElement('button');
         edit.textContent = "edit";
         edit.id = "project-edit-btn";
