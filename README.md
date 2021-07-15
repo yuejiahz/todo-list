@@ -20,7 +20,6 @@ To edit project's name, click on the respective project's name on sidebar
 - Check and uncheck task 
 - Tasks without date input will register today's date automatically,
 - local storage for inter-session usage
-- Cloud firestore
 - reset button to clear local storage 
 
 ### Javascript design pattern/concepts applied:
