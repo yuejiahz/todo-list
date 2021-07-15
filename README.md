@@ -7,14 +7,15 @@ A todo list website to manage your daily task.
 
 ## Instruction
 
-**Home:** to view all tasks in one list (Home).
+**Home:** View all tasks in one list.
 
 **Today:** Quick access to create task list.
 
 **Projects:** Create separate lists for different tasks.
 
 Click on tabs to navigate different lists.
-To edit project's name, click on the respective project's name on sidebar
+To edit or delete project's name, click on the respective project's name on left sidebar.
+Then click on edit/delete button at the title.
 
 ### Feature: 
 - Check and uncheck task 
