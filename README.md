@@ -1,5 +1,6 @@
 # todo-list
 [View demo](https://yuejiahz.github.io/todo-list/)
+![Screenshot](/img/demo-pic.png)
 
 A todo list website to manage your daily task.
 
