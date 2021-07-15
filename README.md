@@ -1,4 +1,5 @@
 # todo-list
+[View demo](https://yuejiahz.github.io/todo-list/) 
 A todo list website to manage your daily task.
 
 Home: to view all tasks in one list (Home).
@@ -12,10 +13,8 @@ Feature:
 - Check and uncheck task 
 - Tasks without date input will register today's date automatically,
 - local storage for inter-session usage
-- Firebase SDKs for Cloud Storage
 - Cloud firestore
 - reset button to clear local storage 
-- Firebase UI Auth
 
 Javascript design pattern/concepts applied:
 - Revealing modular pattern
@@ -33,6 +32,3 @@ Used dependencies in webpack:
 - css loader
 - style-loader
 - date-fns
-
-Devtool:
-- inline-source mapgit
