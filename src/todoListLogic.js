@@ -68,7 +68,7 @@ function addProject() {
     storage.saveProjectList();
     storage.saveNavList();
     createEditProjectInput.addBtn();
-    selection.navItem(navArray.length - 1);
+    selection.navItem(lastIndexOf(navArray));
 }
 function deleteProject() {
     project.clear()

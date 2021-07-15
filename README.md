@@ -14,7 +14,7 @@ Feature:
 - Check and uncheck task 
 - Tasks without date input will register today's date automatically,
 - local storage for inter-session usage
-- Cloud firestore
+- sort task by date automatically
 - reset button to clear local storage 
 
 Javascript design pattern/concepts applied:

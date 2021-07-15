@@ -1,4 +1,5 @@
 import { addTask, deleteTask, editTask, cancelEditTask, addEditedTask, checkboxToggle } from './todoListLogic';
+import { format } from 'date-fns';
 
 const taskContent = document.querySelector('#task-content');
 
@@ -29,12 +30,12 @@ const createTaskInput = (() => {
         add.classList.add("task-btn");
         cancel.classList.add("task-btn");
 
-        date.placeholder="MM/DD/YYYY";
         add.textContent = "Add";
         cancel.textContent = "X";
 
         date.setAttribute('onfocus',"(this.type='date')");
         date.setAttribute('onblur',"(this.type='text')");
+        date.placeholder="DD-MM-YYYY";        
 
         taskBar.appendChild(input);
         taskBar.appendChild(date);
@@ -102,7 +103,7 @@ const createTaskList = (() => {
         del.classList.add('task-btn');
 
         text.textContent = `${list.text}`;
-        date.textContent = `${list.date}`;
+        date.textContent = format(new Date(`${list.date}`), 'dd MMM yyyy');        
         edit.textContent = "edit";
         del.textContent = "X";
 

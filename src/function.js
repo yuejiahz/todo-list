@@ -4,15 +4,14 @@ import { setTitle } from "./index";
 import { format } from "date-fns";
 import { storage } from "./storage";
 
-
 var taskArray = storage.getTaskList() || //[];
-[{ text: 'clean room', date: '12 Sept 2019', listName: 'Today', ID: 578598, listID: 1, status: 'unchecked' },
-{ text: 'book hotel', date: '12 Mar 2021', listName: 'plan vacation', ID: 927494, listID: 274621, status: 'unchecked' },
-{ text: 'decide travel date', date: '12 Mar 2021', listName: 'plan vacation', ID: 927234, listID: 274621, status: 'checked' },
-{ text: 'practice leetcode', date: '2 Apr 2020', listName: 'Today', ID: 385734, listID: 1, status: 'checked' },
-{ text: 'create weather app', date: '6 Jul 2021', listName: 'personal project', ID: 927234, listID: 246916, status: 'checked' },
-{ text: 'buy cat food', date: '8 May 2021', listName: 'errands', ID: 245494, listID: 223636, status: 'unchecked' },
-{ text: 'pay rent', date: '2 May 2021', listName: 'errands', ID: 243224, listID: 223636, status: 'unchecked' }];
+[{ text: 'clean room', date: '12/09/2019', listName: 'Today', ID: 578598, listID: 1, status: 'unchecked' },
+{ text: 'book hotel', date: '12/02/2021', listName: 'plan vacation', ID: 927494, listID: 274621, status: 'unchecked' },
+{ text: 'decide travel date', date: '12/06/2021', listName: 'plan vacation', ID: 927234, listID: 274621, status: 'checked' },
+{ text: 'practice leetcode', date: '2/01/2020', listName: 'Today', ID: 385734, listID: 1, status: 'checked' },
+{ text: 'create weather app', date: '6/11/2021', listName: 'personal project', ID: 927234, listID: 246916, status: 'checked' },
+{ text: 'buy cat food', date: '8/02/2021', listName: 'errands', ID: 245494, listID: 223636, status: 'unchecked' },
+{ text: 'pay rent', date: '2/08/2021', listName: 'errands', ID: 243224, listID: 223636, status: 'unchecked' }];
 
 var projectArray = storage.getProjectList() || //[];
                                                 [{name:'plan vacation', ID: 274621}, 
@@ -89,10 +88,11 @@ const taskFactory = () => {
   function _getDate() {
     var date = document.getElementById('date').value;
     if (!date) {
-      date = format(new Date(), 'dd/MM/yyyy');
+      date = format(new Date(), 'MM/dd/yyyy');
     } else {
-      date = format(new Date(date), 'dd/MM/yyyy');
+      date = format(new Date(date), 'MM/dd/yyyy');
     }
+    console.log(date);
     return date;
   }
 
@@ -130,7 +130,7 @@ const taskFactory = () => {
         break;
       }
     }
-    return selection.task.index
+    return selection.task.index;
   }
 
   const printList = () => {
@@ -143,6 +143,8 @@ const taskFactory = () => {
     else {
       var array =  taskArray.filter((task) =>  task.listID == selection.nav.ID)
     } 
+    let a = [1,6,3,8,0,137,4];
+    const sortedArr= array.sort((a,b) =>  new Date(a.date )> new Date(b.date)? 1 : -1 );
       array.forEach((task) => {
         createTaskList.createTask(task);
       });  
